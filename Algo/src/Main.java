@@ -9,12 +9,13 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import linkedlist.MySingleLinkedList;
+import static javafx.application.Application.launch;
 
 /**
  *
  * @author tiago
  */
-public class AlgoFX extends Application {
+public class Main extends Application {
     
     @Override
     public void start(Stage primaryStage) {
@@ -24,7 +25,6 @@ public class AlgoFX extends Application {
             
             @Override
             public void handle(ActionEvent event) {
-                System.out.println("Hello World!");
                 Platform.exit();
             }
         });
@@ -41,17 +41,30 @@ public class AlgoFX extends Application {
         MySingleLinkedList<String> sll = new MySingleLinkedList<>();
         
      
- 
+        
         sll.add("Hello");
         sll.add("there");
+        
+        sll.add(2, "tihi");
+        sll.set(2, "something");
+
+        System.out.println("deleted: " + sll.remove("Hello"));
         
         Iterator itr = sll.iterator();
         while (itr.hasNext()) {
             Object o = itr.next();
             System.out.println(o.toString());
         }
-
+        System.out.println("size: " + sll.size());
         
+      //  System.out.println("deleted: " + sll.remove(2));
+        System.out.println("contains: " + sll.contains("ehh"));
+        System.out.println("indexOf: " + sll.indexOf("therea"));
+        
+        Object[] array = sll.toArray();
+        for (Object o: array) {
+            System.out.println(o.toString());
+        }  
     }
 
     /**

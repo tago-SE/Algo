@@ -48,10 +48,18 @@ public class MySingleLinkedList<E> implements List, Iterable {
         return new MyIterator(head);
     }
 
-    private MyNode<E> getLast(MyNode<E> startNode) {
-        if (startNode.getNext() == null) 
-            return startNode;
-        return getLast(startNode.getNext());
+    private MyNode<E> getLast(MyNode<E> curNode) {
+        if (curNode.getNext() == null) 
+            return curNode;
+        return getLast(curNode.getNext());
+    }
+    
+    private MyNode<E> getNode(int index) {
+        MyNode<E> node = head; 
+        for (int i = 0; i < index && node != null; i++) {
+            node = node.getNext();
+        }
+        return node; 
     }
     
     private int countNodes(MyNode<E> startNode, int count) {
@@ -59,7 +67,7 @@ public class MySingleLinkedList<E> implements List, Iterable {
             return count;
         return countNodes(startNode.getNext(), count + 1);
     }
- 
+    
     @Override
     public int size() {
         if (head == null)
@@ -85,7 +93,20 @@ public class MySingleLinkedList<E> implements List, Iterable {
     
     @Override
     public boolean remove(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MyNode<E> prev = null;
+        MyNode<E> cur = head;
+        while (cur != null) {
+            if (cur.toString().equals(o)) {
+                if (prev != null)
+                    prev.setNext(cur.getNext());
+                else 
+                    head = cur.getNext();
+                return true;
+            }
+            prev = cur;
+            cur.getNext();
+        }
+        return false;
     }
     
     @Override
@@ -95,37 +116,79 @@ public class MySingleLinkedList<E> implements List, Iterable {
 
     @Override
     public Object get(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       return getNode(index);
     }
 
     @Override
     public Object set(int index, Object element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MyNode<E> n = getNode(index);
+        if (n != null) {
+            n.setData((E) element);
+            return element;
+        } 
+        return null;
     }
 
     @Override
     public void add(int index, Object element) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (index < 0 || index > size()) {
+            throw new IndexOutOfBoundsException("" + index);
+        }
+        if (index == 0) {
+            head = new MyNode(element, head);
+        } else {
+            MyNode<E> prev = getNode(index - 1);
+            prev.setNext(new MyNode(element, prev.getNext()));
+        }
     }
 
     @Override
     public Object remove(int index) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("" + index);
+        }
+        Object deleted = null;
+        if (index == 0) {
+            deleted = head;
+            head = head.getNext();
+        } else {
+            MyNode<E> prev = getNode(index - 1);
+            deleted = prev.getNext();
+            prev.setNext(prev.getNext().getNext());
+        }
+        return deleted;
     }
 
     @Override
     public int indexOf(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MyNode<E> cur = head;
+        for (int i = 0; i < size() && cur != null; i++, cur = cur.getNext()) {
+            if (cur.toString().equals(o))
+                return i;
+        }
+        return -1;
     }
 
     @Override
     public boolean contains(Object o) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MyNode<E> cur = head;
+        while (cur != null) {
+            if (cur.toString().equals(o)) {
+                return true;
+            }
+            cur = cur.getNext();
+        }
+        return false;
     }
 
     @Override
     public Object[] toArray() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        Object[] array = new Object[size()];
+        MyNode<E> cur = head;
+        for (int i = 0; i < size() && cur != null; i++, cur = cur.getNext()) {
+            array[i] = cur.getData();
+        }
+        return array;
     }
 
     @Override
