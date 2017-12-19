@@ -48,23 +48,29 @@ public class Main extends Application {
         sll.add(2, "tihi");
         sll.set(2, "something");
 
-        System.out.println("deleted: " + sll.remove("Hello"));
+        //sSystem.out.println("deleted: " + sll.remove("Hello"));
         
-        Iterator itr = sll.iterator();
-        while (itr.hasNext()) {
-            Object o = itr.next();
-            System.out.println(o.toString());
-        }
         System.out.println("size: " + sll.size());
         
       //  System.out.println("deleted: " + sll.remove(2));
         System.out.println("contains: " + sll.contains("ehh"));
         System.out.println("indexOf: " + sll.indexOf("therea"));
+
         
-        Object[] array = sll.toArray();
-        for (Object o: array) {
+        
+        sll.add("Mother");
+        sll.add("wtf");
+        
+        Iterator itr = sll.iterator();
+        
+       // itr.next();
+        //itr.remove();
+        
+        
+        while (itr.hasNext()) {
+            Object o = itr.next();
             System.out.println(o.toString());
-        }  
+        }
     }
 
     /**

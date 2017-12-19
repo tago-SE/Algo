@@ -14,7 +14,7 @@ public class MySingleLinkedList<E> implements List, Iterable {
 
     private MyNode<E> head;
     
-    public class MyIterator<E> implements Iterator {
+    private class MyIterator<E> implements Iterator {
     
         private MyNode<E> cur;
         private MyNode<E> next;
@@ -39,7 +39,16 @@ public class MySingleLinkedList<E> implements List, Iterable {
 
         @Override
         public void remove() {
-            
+            if (cur == null)
+                throw new NullPointerException("Trying to remove null reference.");
+            if (cur == head) {
+                head = head.getNext();
+            } else {
+                if (prev != null) {
+                    prev.setNext(next);
+                }
+            }
+            cur = null;
         }
     }
         
