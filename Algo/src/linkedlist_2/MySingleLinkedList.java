@@ -1,4 +1,4 @@
-package linkedlist;
+package linkedlist_2;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -65,17 +65,12 @@ public class MySingleLinkedList<E> implements List, Iterable {
         return node; 
     }
     
-    private int countNodes(MyNode<E> startNode, int count) {
-        if (startNode.getNext() == null)
-            return count;
-        return countNodes(startNode.getNext(), count + 1);
-    }
-    
     @Override
     public int size() {
-        if (head == null)
-            return 0;
-        return countNodes(head, 1);
+        int count = 0;
+        for (MyNode<E> node = head; node != null; node = node.getNext())
+            count++;
+        return count;
     }
 
     @Override
@@ -164,22 +159,17 @@ public class MySingleLinkedList<E> implements List, Iterable {
 
     @Override
     public int indexOf(Object o) {
-        MyNode<E> cur = head;
-        for (int i = 0; i < size() && cur != null; i++, cur = cur.getNext()) {
-            if (cur.toString().equals(o))
-                return i;
+        int index = 0;
+        for (MyNode<E> n = head; n != null; n = n.getNext(), index++) {
+            if (n.toString().equals(o)) return index;
         }
         return -1;
     }
 
     @Override
     public boolean contains(Object o) {
-        MyNode<E> cur = head;
-        while (cur != null) {
-            if (cur.toString().equals(o)) {
-                return true;
-            }
-            cur = cur.getNext();
+        for (MyNode<E> n = head; n != null; n = n.getNext()) {
+            if (n.toString().equals(o)) return true;
         }
         return false;
     }
@@ -195,28 +185,44 @@ public class MySingleLinkedList<E> implements List, Iterable {
     }
 
     @Override
-    public Object[] toArray(Object[] a) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Object[] toArray(Object[] array) {
+        MyNode<E> cur = head;
+        for (int i = 0; i < size() && cur != null; i++, cur = cur.getNext()) {
+            array[i] = cur.getData();
+        }
+        return array;
     }
 
     @Override
     public boolean containsAll(Collection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (!c.stream().noneMatch((o) -> (!contains(o)))) {
+            return false;
+        }
+        return true;
     }
 
     @Override
     public boolean addAll(Collection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        c.stream().forEach((o) -> {
+            add(o);
+        });
+        return true;
     }
 
     @Override
     public boolean addAll(int index, Collection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Object o: c) {
+            add(index++, o);
+        }
+        return true;
     }
 
     @Override
     public boolean removeAll(Collection c) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        c.stream().forEach((o) -> {
+            remove(o);
+        });
+        return true;
     }
 
     @Override

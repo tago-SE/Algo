@@ -8,7 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import linkedlist.MySingleLinkedList;
+import linkedlist_2.MySingleLinkedList;
 import static javafx.application.Application.launch;
 
 /**
@@ -53,7 +53,7 @@ public class Main extends Application {
         System.out.println("size: " + sll.size());
         
       //  System.out.println("deleted: " + sll.remove(2));
-        System.out.println("contains: " + sll.contains("ehh"));
+        System.out.println("contains: " + sll.contains("there"));
         System.out.println("indexOf: " + sll.indexOf("therea"));
 
         
