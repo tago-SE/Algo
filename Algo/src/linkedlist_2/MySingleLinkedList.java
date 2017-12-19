@@ -22,6 +22,8 @@ public class MySingleLinkedList<E> implements List, Iterable {
 
         private MyIterator(MyNode<E> startNode) {
             next = startNode;
+            cur = null;
+            prev = null;
         }
 
         @Override
@@ -165,6 +167,8 @@ public class MySingleLinkedList<E> implements List, Iterable {
         }
         return -1;
     }
+    
+    
 
     @Override
     public boolean contains(Object o) {
