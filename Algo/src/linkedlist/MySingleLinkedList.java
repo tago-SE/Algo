@@ -47,12 +47,6 @@ public class MySingleLinkedList<E> implements List, Iterable {
     public Iterator<E> iterator() {
         return new MyIterator(head);
     }
-
-    private MyNode<E> getLast(MyNode<E> curNode) {
-        if (curNode.getNext() == null) 
-            return curNode;
-        return getLast(curNode.getNext());
-    }
     
     private MyNode<E> getNode(int index) {
         MyNode<E> node = head; 
@@ -85,7 +79,7 @@ public class MySingleLinkedList<E> implements List, Iterable {
         if (head == null) {
             head = new MyNode(o);
         } else {
-            MyNode last = getLast(head);
+            MyNode last = getNode(size() - 1); // add at last position
             last.setNext(new MyNode(o));
         }
         return true;
