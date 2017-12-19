@@ -56,7 +56,6 @@ public class Main extends Application {
 
         // Input Event
         inputArea.setOnAction(new EventHandler<ActionEvent>() {
-            
             @Override
             public void handle(ActionEvent event) {
                 System.out.println("Command: " + inputArea.getText());
@@ -64,12 +63,17 @@ public class Main extends Application {
                 inputArea.clear();
             }
         });
- 
+        
         Scene scene = new Scene(root, 300, 250);
         
-        primaryStage.setTitle("Hello World!");
+        primaryStage.setTitle("Algo App");
         primaryStage.setScene(scene);
         primaryStage.show();
+        primaryStage.setOnCloseRequest(event -> {
+            System.out.println("Exit");
+            Platform.exit();
+        });
+        
         
         
         
@@ -120,113 +124,3 @@ public class Main extends Application {
     }
     
 }
-
-/*
-package Client;
-
-import Model.Message;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observer;
-import javafx.event.ActionEvent;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
-
-public class ChatView extends AnchorPane implements MyObservable {
-    
-    private TextArea chatArea = new TextArea();
-    private TextArea userArea = new TextArea();
-    private TextField textField = new TextField();
-    private Button sendButton = new Button();
-    
-    private List<MyObserver> observers = new ArrayList<>();
-
-    public ChatView() {
-        
-        this.setStyle("-fx-background-color: #2b3330;");
-        
-        double caW = 400.;
-        double caH = 280.;
-        double caX = 15.;
-        double caY = 15.;
-        chatArea.setMaxWidth(caW);
-        chatArea.setMaxHeight(caH);   
-        chatArea.setLayoutX(caX);
-        chatArea.setLayoutY(caY);
-        chatArea.setEditable(false);
-        this.getChildren().add(chatArea); 
-        
-        double uaW = 100.;
-        double uaH = caH;
-        double uaX = caX + caW + 5;
-        double uaY = caY;
-        userArea.setMaxWidth(uaW);
-        userArea.setMaxHeight(uaH);
-        userArea.setLayoutX(uaX);
-        userArea.setLayoutY(uaY);
-        userArea.setEditable(false);
-
-        this.getChildren().add(userArea); 
-        
-        double tfW = caW;
-        double tfH = 20;
-        double tfX = caX;
-        double tfY = caY + caH;
-      
-        textField.setMaxWidth(tfW);
-        textField.setMinWidth(tfW);
-        textField.setMaxHeight(tfH);
-        
-        textField.setLayoutX(tfX);
-        textField.setLayoutY(tfY);
-        this.getChildren().add(textField); 
-        
-        sendButton.setText("Send");
-        sendButton.setMaxWidth(caW);
-        sendButton.setMaxHeight(caH);   
-        sendButton.setLayoutX(caX + caW + 5);
-        sendButton.setLayoutY(caY + caH);
-        this.getChildren().add(sendButton); 
-
-        
-        initEventHandlers();
-    }
-    
-    private void initEventHandlers() {
-        sendButton.setOnAction(this::handleSendMessage);
-        
-    }
-
-    private void handleSendMessage(ActionEvent event) {
-        notifyObservers(new Message("Me" , textField.getText()));
-        textField.clear();
-    }
-    
-    @Override
-    synchronized public void notifyObservers(Object arg) {
-        observers.stream().forEach((o) -> {
-            o.update(this, arg);
-        });
-    }
-
-    @Override
-    public void registerObserver(MyObserver observer) {
-        observers.add(observer);
-    }
-
-    @Override
-    public void unregisterObserver(MyObserver observer) {
-         observers.remove(observer);
-    }
-
-    @Override
-    public Object getUpdate(Observer obj) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-   
-
-}
-
-*/

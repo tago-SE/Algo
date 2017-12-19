@@ -1,6 +1,8 @@
 
 package linkedlist_2;
 
+import java.util.Iterator;
+import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -17,12 +19,21 @@ public class MySingleLinkedListTest {
     }
 
     /**
+     * Replace the instance with the List class you wish to test. 
+     * @return List<String>
+     */
+    private List getInstance() {
+        List<String> instance = new MySingleLinkedList<>();
+        return instance;
+    }
+    
+    /**
      * Expected to catch IndexOutOfBoundsException when attempting to add a 
      * negative index
      */
     @Test(expected = IndexOutOfBoundsException.class) 
     public void testAdd_int_Object_1() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         instance.add(-1, "Hello");
     }
     
@@ -32,7 +43,7 @@ public class MySingleLinkedListTest {
      */
     @Test(expected = IndexOutOfBoundsException.class) 
     public void testAdd_int_Object_2() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         instance.add(1, "Hello");
     }
     
@@ -42,7 +53,7 @@ public class MySingleLinkedListTest {
      */
     @Test
     public void testAdd_int_Object_3() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         instance.add(0, "Hello");
         int result = instance.size();
         int expResult = 1;
@@ -54,7 +65,7 @@ public class MySingleLinkedListTest {
      */
     @Test
     public void testAdd_int_Object_4() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         instance.add("First");
         instance.add(1, "Hello");
         int result = instance.size();
@@ -67,7 +78,7 @@ public class MySingleLinkedListTest {
      */
     @Test
     public void testIterator_iteration() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         instance.add("First");
         instance.add("Second");
         instance.add("Third");
@@ -86,7 +97,7 @@ public class MySingleLinkedListTest {
      */
     @Test(expected = NullPointerException.class) 
     public void testIterator_nextOnEmptyList() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         Iterator itr = instance.iterator();
         itr.next();
     }
@@ -96,7 +107,7 @@ public class MySingleLinkedListTest {
      */
     @Test(expected = NullPointerException.class) 
     public void testIterator_nextBeyondListSize() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         instance.add("First");
         instance.add("Second");
         Iterator itr = instance.iterator();
@@ -110,7 +121,7 @@ public class MySingleLinkedListTest {
      */
     @Test(expected = NullPointerException.class) 
     public void testIterator_removeOnEmptyList() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         Iterator itr = instance.iterator();
         itr.remove();
     } 
@@ -120,7 +131,7 @@ public class MySingleLinkedListTest {
      */
     @Test(expected = NullPointerException.class) 
     public void testIterator_remove_failure() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         instance.add("First");
         Iterator itr = instance.iterator();
         itr.remove();
@@ -132,7 +143,7 @@ public class MySingleLinkedListTest {
     */
     @Test(expected = NullPointerException.class) 
     public void testIterator_doubleRemove_failure() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         instance.add("First");
         instance.add("Second");
         Iterator itr = instance.iterator();
@@ -146,7 +157,7 @@ public class MySingleLinkedListTest {
     */
     @Test
     public void testIterator_doubleRemove_success() {
-        MySingleLinkedList<String> instance = new MySingleLinkedList<>();
+        List<String> instance = getInstance();
         instance.add("First");
         instance.add("Second");
         instance.add("Third");
