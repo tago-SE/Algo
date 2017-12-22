@@ -13,50 +13,41 @@ import java.util.ListIterator;
 public class MySingleLinkedList<E> implements List, Iterable {
 
     private MyNode<E> head;
-    
-    private class MyIterator<E> implements Iterator {
-    
-        private MyNode<E> cur;
-        private MyNode<E> next;
-        private MyNode<E> prev;
-
-        private MyIterator(MyNode<E> startNode) {
-            next = startNode;
-            cur = null;
-            prev = null;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return next != null;
-        }
-
-        @Override
-        public Object next() {
-            prev = cur;
-            cur = next;
-            next = next.getNext();
-            return cur;
-        }
-
-        @Override
-        public void remove() {
-            if (cur == null)
-                throw new NullPointerException();
-            if (cur == head) {
-                head = head.getNext();
-            } else {
-                if (prev != null) {
-                    prev.setNext(next);
-                }
-            }
-            cur = null;
-        }
-    }
-        
+       
     @Override 
     public Iterator<E> iterator() {
-        return new MyIterator(head);
+        return new Iterator() {
+            private MyNode<E> cur;
+            private MyNode<E> next = head;
+            private MyNode<E> prev;
+        
+            @Override
+            public boolean hasNext() {
+                return next != null;
+            }
+
+            @Override
+            public Object next() {
+                prev = cur;
+                cur = next;
+                next = next.getNext();
+                return cur;
+            }
+            
+            @Override
+            public void remove() {
+                if (cur == null)
+                    throw new NullPointerException();
+                if (cur == head) {
+                    head = head.getNext();
+                } else {
+                    if (prev != null) {
+                        prev.setNext(next);
+                    }
+                }
+                cur = null;
+            }
+        };
     }
     
     private MyNode<E> getNode(int index) {
@@ -254,7 +245,14 @@ public class MySingleLinkedList<E> implements List, Iterable {
 
     @Override
     public List subList(int fromIndex, int toIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MyDoubleLinkedList<E> list = new MyDoubleLinkedList();
+        int i = 0;
+        for (MyNode<E> n = head; n != null; n = n.getNext()) {
+            if (i >= fromIndex && i <= toIndex) 
+                list.add(n.getData());
+            i++;
+        }
+        return list;
     }
     
 }

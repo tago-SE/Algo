@@ -15,6 +15,7 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
     private MyNode<E> tail;
     private int size; 
     
+    /*
     private class MyIterator<E> implements Iterator {
     
         private MyNode<E> cur;
@@ -66,6 +67,7 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
             cur = null;
         }
     }
+    */
     
     private MyNode<E> getNode(int index) {
         MyNode<E> node = head; 
@@ -77,7 +79,51 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
         
     @Override 
     public Iterator<E> iterator() {
-        return new MyIterator(head);
+        return new Iterator() {
+            
+            private MyNode<E> cur;
+            private MyNode<E> next = head;
+            private MyNode<E> prev;
+        
+            @Override
+            public boolean hasNext() {
+                return next != null;
+            }
+
+            @Override
+            public Object next() {
+                prev = cur;
+                cur = next;
+                next = next.getNext();
+                return cur;
+            }
+            
+            @Override
+            public void remove() {
+                if (cur == null)
+                    throw new NullPointerException();   
+                if (cur == head) {
+                    head = head.getNext();
+                    if (head == null)
+                        tail = null;
+                    else 
+                        head.setPrev(null);
+                }
+                else if (cur == tail) {
+                    tail = tail.getPrev();
+                    if (tail == null)
+                        head = null;
+                    else 
+                        tail.setNext(null);
+                }
+                else {
+                    prev.setNext(next);
+                    next.setPrev(prev);
+                }
+                size--;
+                cur = null;
+            }
+        };
     }
 
     @Override
@@ -295,7 +341,14 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
 
     @Override
     public List subList(int fromIndex, int toIndex) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        MyDoubleLinkedList<E> list = new MyDoubleLinkedList();
+        int i = 0;
+        for (MyNode<E> n = head; n != null; n = n.getNext()) {
+            if (i >= fromIndex && i <= toIndex) 
+                list.add(n.getData());
+            i++;
+        }
+        return list;
     }
     
     @Override

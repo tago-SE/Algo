@@ -86,17 +86,16 @@ public class Main extends Application {
         
      
         
-        l.add("One");
-        l.add("WTF");
+        l.add(1);
         l.add("SomeRemovedText");
         l.set(1, "Two");
 
         l.add(2, "Inserted_1");
-        l.add(0, "addedFirst");
-        l.add(4, "Four");
+        l.add(0, 0);
+        l.add(4, 4);
         
-        //System.out.println("removing: " + l.remove(0));
-        //System.out.println("removing: " + l.remove(3));
+        System.out.println("removing: " + l.remove(1));
+        System.out.println("removing: " + l.remove(3));
         
         System.out.println(l);
         
