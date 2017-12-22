@@ -87,19 +87,21 @@ public class Main extends Application {
      
         
         l.add("One");
+        l.add("WTF");
         l.add("SomeRemovedText");
         l.set(1, "Two");
 
-        l.add(1, "Inserted_1");
+        l.add(2, "Inserted_1");
         l.add(0, "addedFirst");
         l.add(4, "Four");
         
-        System.out.println("removing: " + l.remove(0));
-        System.out.println("removing: " + l.remove(3));
+        //System.out.println("removing: " + l.remove(0));
+        //System.out.println("removing: " + l.remove(3));
+        
+        System.out.println(l);
         
         Iterator itr = l.iterator();
-        
-        System.out.println("size: " + l.size());
+       
        // itr.next();
         //itr.remove();
         
@@ -109,7 +111,6 @@ public class Main extends Application {
             System.out.println(o.toString());
         }
         //l.clear();
-        System.out.println(l);
     }
     
     /**

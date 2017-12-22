@@ -153,7 +153,6 @@ public class MySingleLinkedListTest {
     } 
     /**
     * Attempting to do a double remove without first executing another next between the removes
-    * 
     */
     @Test
     public void testIterator_doubleRemove_success() {

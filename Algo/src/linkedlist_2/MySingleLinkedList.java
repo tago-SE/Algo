@@ -166,7 +166,7 @@ public class MySingleLinkedList<E> implements List, Iterable {
     public int indexOf(Object o) {
         int index = 0;
         for (MyNode<E> n = head; n != null; n = n.getNext(), index++) {
-            if (n.toString().equals(o)) return index;
+            if (n.getData().equals(o)) return index;
         }
         return -1;
     }
@@ -176,7 +176,7 @@ public class MySingleLinkedList<E> implements List, Iterable {
     @Override
     public boolean contains(Object o) {
         for (MyNode<E> n = head; n != null; n = n.getNext()) {
-            if (n.toString().equals(o)) return true;
+            if (n.getData().equals(o)) return true;
         }
         return false;
     }

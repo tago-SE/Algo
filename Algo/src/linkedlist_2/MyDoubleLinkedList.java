@@ -92,7 +92,9 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
     
     @Override
     public boolean add(Object o) {
+        
         add(size, o);
+        
         return true;
     }
     
@@ -188,11 +190,13 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
         }
         // Remove at index
         else {
+           
             MyNode<E> node = getNode(index);
             MyNode<E> prev = node.getPrev();
-            MyNode<E> next = node.getPrev();
+            MyNode<E> next = node.getNext();
             prev.setNext(next);
             next.setPrev(prev);
+            deleted = node.getData();
         }
         size--;
         return deleted;
