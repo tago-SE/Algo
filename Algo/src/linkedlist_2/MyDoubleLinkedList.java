@@ -5,21 +5,22 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-
 /**
  *
  * @author tiago
  */
-public class MySingleLinkedList<E> implements List, Iterable {
+public class MyDoubleLinkedList<E> implements List, Iterable {
 
     private MyNode<E> head;
+    private MyNode<E> tail;
+    private int size; 
     
     private class MyIterator<E> implements Iterator {
     
         private MyNode<E> cur;
         private MyNode<E> next;
         private MyNode<E> prev;
-
+        
         private MyIterator(MyNode<E> startNode) {
             next = startNode;
             cur = null;
@@ -42,21 +43,28 @@ public class MySingleLinkedList<E> implements List, Iterable {
         @Override
         public void remove() {
             if (cur == null)
-                throw new NullPointerException();
+                throw new NullPointerException();   
             if (cur == head) {
                 head = head.getNext();
-            } else {
-                if (prev != null) {
-                    prev.setNext(next);
-                }
+                if (head == null)
+                    tail = null;
+                else 
+                    head.setPrev(null);
             }
+            else if (cur == tail) {
+                tail = tail.getPrev();
+                if (tail == null)
+                    head = null;
+                else 
+                    tail.setNext(null);
+            }
+            else {
+                prev.setNext(next);
+                next.setPrev(prev);
+            }
+            size--;
             cur = null;
         }
-    }
-        
-    @Override 
-    public Iterator<E> iterator() {
-        return new MyIterator(head);
     }
     
     private MyNode<E> getNode(int index) {
@@ -66,13 +74,15 @@ public class MySingleLinkedList<E> implements List, Iterable {
         }
         return node; 
     }
-    
+        
+    @Override 
+    public Iterator<E> iterator() {
+        return new MyIterator(head);
+    }
+
     @Override
     public int size() {
-        int count = 0;
-        for (MyNode<E> node = head; node != null; node = node.getNext())
-            count++;
-        return count;
+        return size;
     }
 
     @Override
@@ -82,101 +92,128 @@ public class MySingleLinkedList<E> implements List, Iterable {
     
     @Override
     public boolean add(Object o) {
-        if (head == null) {
-            head = new MyNode(o);
-        } else {
-            MyNode last = getNode(size() - 1); // add at last position
-            last.setNext(new MyNode(o));
-        }
+        add(size, o);
         return true;
     }
     
     @Override
     public boolean remove(Object o) {
-        MyNode<E> prev = null;
-        MyNode<E> cur = head;
-        while (cur != null) {
-            if (cur.getData().equals(o)) {
-                if (prev != null)
-                    prev.setNext(cur.getNext());
-                else 
-                    head = cur.getNext();
-                return true;
-            }
-            prev = cur;
-            cur.getNext();
+        try {
+            remove(indexOf(o));
+        } catch (IndexOutOfBoundsException ex) {
+            return false;
         }
-        return false;
+        return true;
     }
     
     @Override
     public void clear() {
-        head = null;
+        size = 0;
+        head = tail = null;
     }
 
     @Override
     public Object get(int index) {
-       MyNode<E> node = getNode(index);
-       if (node != null) 
-           return node.getData();
-       return null;
-    }
-
-    @Override
-    public Object set(int index, Object element) {
-        MyNode<E> n = getNode(index);
-        if (n != null) {
-          n.setData((E) element);
-          return element;
-        } 
+        MyNode<E> node = getNode(index);
+        if (node != null) {
+            return node.getData();
+        }
         return null;
     }
 
     @Override
+    public Object set(int index, Object element) {
+        MyNode<E> node = getNode(index);
+        if (node != null) {
+            node.setData((E) element);
+            return element;
+        }
+        return null;
+    }
+    
+    @Override
     public void add(int index, Object element) {
-        if (index < 0 || index > size()) {
+        if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("index: " + index);
         }
+        // Add first
         if (index == 0) {
-            head = new MyNode(element, head);
-        } else {
-            MyNode<E> prev = getNode(index - 1);
-            prev.setNext(new MyNode(element, prev.getNext()));
+            if (head == null) {
+                head = tail = new MyNode(element);
+            } else {
+                MyNode<E> newNode = new MyNode(element, head);
+                head.setPrev(newNode);
+                head = newNode;
+            }
+        // Add last
+        } else if (index == size) {
+            MyNode<E> newNode = new MyNode(element, null, tail);
+            tail.setNext(newNode);
+            tail = newNode;
+        } 
+        // Insert at index
+        else {
+            MyNode<E> oldNode = getNode(index);
+            MyNode<E> prev = oldNode.getPrev();
+            MyNode<E> newNode = new MyNode(element, oldNode, prev);
+            prev.setNext(newNode);
+            oldNode.setPrev(newNode);
         }
+        size++;
     }
 
     @Override
     public Object remove(int index) {
-        if (index < 0 || index >= size()) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("index: " + index);
         }
         Object deleted = null;
+        // Remove first
         if (index == 0) {
-            deleted = head;
+            deleted = head.getData();
             head = head.getNext();
-        } else {
-            MyNode<E> prev = getNode(index - 1);
-            deleted = prev.getNext();
-            prev.setNext(prev.getNext().getNext());
+            if (head == null)
+                tail = null;
+            else 
+                head.setPrev(null);
         }
+        // Remove last 
+        else if (index == (size - 1)) {
+            deleted = tail.getData();
+            tail = tail.getPrev();
+            if (tail == null)
+                head = null;
+            else
+                tail.setNext(null);
+        }
+        // Remove at index
+        else {
+            MyNode<E> node = getNode(index);
+            MyNode<E> prev = node.getPrev();
+            MyNode<E> next = node.getPrev();
+            prev.setNext(next);
+            next.setPrev(prev);
+        }
+        size--;
         return deleted;
     }
 
     @Override
     public int indexOf(Object o) {
-        int index = 0;
-        for (MyNode<E> n = head; n != null; n = n.getNext(), index++) {
-            if (n.toString().equals(o)) return index;
+        int i = 0;
+        for (MyNode<E> node = head; node != null; node = node.getNext()) {
+            if (node.getData().equals(o))
+                return i;
+            i++;
         }
         return -1;
     }
     
-    
-
     @Override
     public boolean contains(Object o) {
-        for (MyNode<E> n = head; n != null; n = n.getNext()) {
-            if (n.toString().equals(o)) return true;
+        for (MyNode<E> node = head; node != null; node = node.getNext()) {
+            if (node.getData().equals(o))
+                return true;
         }
         return false;
     }
@@ -257,4 +294,13 @@ public class MySingleLinkedList<E> implements List, Iterable {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
+    @Override
+    public String toString() {
+        String s = "{head=" + head + ", tail=" + tail + ", size=" + size + " ";
+        
+        for (MyNode<E> node = head; node != null; node = node.getNext()) {
+            s += "{" + node + "}";
+        }
+        return s + "}";
+    }
 }

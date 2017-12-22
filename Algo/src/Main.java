@@ -13,6 +13,7 @@ import static javafx.application.Application.launch;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
+import linkedlist_2.MyDoubleLinkedList;
 
 /**
  *
@@ -81,31 +82,24 @@ public class Main extends Application {
         
         
         
-        MySingleLinkedList<String> sll = new MySingleLinkedList<>();
+        MyDoubleLinkedList<String> l = new MyDoubleLinkedList<>();
         
      
         
-        sll.add("Hello");
-        sll.add("there");
-        
-        sll.add(2, "tihi");
-        sll.set(2, "something");
+        l.add("One");
+        l.add("SomeRemovedText");
+        l.set(1, "Two");
 
-        //sSystem.out.println("deleted: " + sll.remove("Hello"));
+        l.add(1, "Inserted_1");
+        l.add(0, "addedFirst");
+        l.add(4, "Four");
         
-        System.out.println("size: " + sll.size());
+        System.out.println("removing: " + l.remove(0));
+        System.out.println("removing: " + l.remove(3));
         
-      //  System.out.println("deleted: " + sll.remove(2));
-        System.out.println("contains: " + sll.contains("there"));
-        System.out.println("indexOf: " + sll.indexOf("therea"));
-
+        Iterator itr = l.iterator();
         
-        
-        sll.add("Mother");
-        sll.add("wtf");
-        
-        Iterator itr = sll.iterator();
-        
+        System.out.println("size: " + l.size());
        // itr.next();
         //itr.remove();
         
@@ -114,6 +108,8 @@ public class Main extends Application {
             Object o = itr.next();
             System.out.println(o.toString());
         }
+        //l.clear();
+        System.out.println(l);
     }
     
     /**
