@@ -12,14 +12,14 @@ import java.util.ListIterator;
  */
 public class MySingleLinkedList<E> implements List, Iterable {
 
-    private MyNode<E> head;
+    private NodeChainLink<E> head;
        
     @Override 
     public Iterator<E> iterator() {
         return new Iterator() {
-            private MyNode<E> cur;
-            private MyNode<E> next = head;
-            private MyNode<E> prev;
+            private NodeChainLink<E> cur;
+            private NodeChainLink<E> next = head;
+            private NodeChainLink<E> prev;
         
             @Override
             public boolean hasNext() {
@@ -50,8 +50,8 @@ public class MySingleLinkedList<E> implements List, Iterable {
         };
     }
     
-    private MyNode<E> getNode(int index) {
-        MyNode<E> node = head; 
+    private NodeChainLink<E> getNode(int index) {
+        NodeChainLink<E> node = head; 
         for (int i = 0; i < index && node != null; i++) {
             node = node.getNext();
         }
@@ -61,7 +61,7 @@ public class MySingleLinkedList<E> implements List, Iterable {
     @Override
     public int size() {
         int count = 0;
-        for (MyNode<E> node = head; node != null; node = node.getNext())
+        for (NodeChainLink<E> node = head; node != null; node = node.getNext())
             count++;
         return count;
     }
@@ -74,20 +74,20 @@ public class MySingleLinkedList<E> implements List, Iterable {
     @Override
     public boolean add(Object o) {
         if (head == null) {
-            head = new MyNode(o);
+            head = new NodeChainLink(o);
         } else {
-            MyNode last = getNode(size() - 1); // add at last position
-            last.setNext(new MyNode(o));
+            NodeChainLink last = getNode(size() - 1); // add at last position
+            last.setNext(new NodeChainLink(o));
         }
         return true;
     }
     
     @Override
     public boolean remove(Object o) {
-        MyNode<E> prev = null;
-        MyNode<E> cur = head;
+        NodeChainLink<E> prev = null;
+        NodeChainLink<E> cur = head;
         while (cur != null) {
-            if (cur.getData().equals(o)) {
+            if (cur.getElement().equals(o)) {
                 if (prev != null)
                     prev.setNext(cur.getNext());
                 else 
@@ -107,17 +107,17 @@ public class MySingleLinkedList<E> implements List, Iterable {
 
     @Override
     public Object get(int index) {
-       MyNode<E> node = getNode(index);
+       NodeChainLink<E> node = getNode(index);
        if (node != null) 
-           return node.getData();
+           return node.getElement();
        return null;
     }
 
     @Override
     public Object set(int index, Object element) {
-        MyNode<E> n = getNode(index);
+        NodeChainLink<E> n = getNode(index);
         if (n != null) {
-          n.setData((E) element);
+          n.setElement((E) element);
           return element;
         } 
         return null;
@@ -129,10 +129,10 @@ public class MySingleLinkedList<E> implements List, Iterable {
             throw new IndexOutOfBoundsException("index: " + index);
         }
         if (index == 0) {
-            head = new MyNode(element, head);
+            head = new NodeChainLink(element, head);
         } else {
-            MyNode<E> prev = getNode(index - 1);
-            prev.setNext(new MyNode(element, prev.getNext()));
+            NodeChainLink<E> prev = getNode(index - 1);
+            prev.setNext(new NodeChainLink(element, prev.getNext()));
         }
     }
 
@@ -146,7 +146,7 @@ public class MySingleLinkedList<E> implements List, Iterable {
             deleted = head;
             head = head.getNext();
         } else {
-            MyNode<E> prev = getNode(index - 1);
+            NodeChainLink<E> prev = getNode(index - 1);
             deleted = prev.getNext();
             prev.setNext(prev.getNext().getNext());
         }
@@ -156,8 +156,8 @@ public class MySingleLinkedList<E> implements List, Iterable {
     @Override
     public int indexOf(Object o) {
         int index = 0;
-        for (MyNode<E> n = head; n != null; n = n.getNext(), index++) {
-            if (n.getData().equals(o)) return index;
+        for (NodeChainLink<E> n = head; n != null; n = n.getNext(), index++) {
+            if (n.getElement().equals(o)) return index;
         }
         return -1;
     }
@@ -166,8 +166,8 @@ public class MySingleLinkedList<E> implements List, Iterable {
 
     @Override
     public boolean contains(Object o) {
-        for (MyNode<E> n = head; n != null; n = n.getNext()) {
-            if (n.getData().equals(o)) return true;
+        for (NodeChainLink<E> n = head; n != null; n = n.getNext()) {
+            if (n.getElement().equals(o)) return true;
         }
         return false;
     }
@@ -175,18 +175,18 @@ public class MySingleLinkedList<E> implements List, Iterable {
     @Override
     public Object[] toArray() {
         Object[] array = new Object[size()];
-        MyNode<E> cur = head;
+        NodeChainLink<E> cur = head;
         for (int i = 0; i < size() && cur != null; i++, cur = cur.getNext()) {
-            array[i] = cur.getData();
+            array[i] = cur.getElement();
         }
         return array;
     }
 
     @Override
     public Object[] toArray(Object[] array) {
-        MyNode<E> cur = head;
+        NodeChainLink<E> cur = head;
         for (int i = 0; i < size() && cur != null; i++, cur = cur.getNext()) {
-            array[i] = cur.getData();
+            array[i] = cur.getElement();
         }
         return array;
     }
@@ -247,9 +247,9 @@ public class MySingleLinkedList<E> implements List, Iterable {
     public List subList(int fromIndex, int toIndex) {
         MyDoubleLinkedList<E> list = new MyDoubleLinkedList();
         int i = 0;
-        for (MyNode<E> n = head; n != null; n = n.getNext()) {
+        for (NodeChainLink<E> n = head; n != null; n = n.getNext()) {
             if (i >= fromIndex && i <= toIndex) 
-                list.add(n.getData());
+                list.add(n.getElement());
             i++;
         }
         return list;

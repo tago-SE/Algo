@@ -1,14 +1,10 @@
 import java.util.Iterator;
 import javafx.application.Application;
-import static javafx.application.Application.launch;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
-import linkedlist_2.MySingleLinkedList;
 import static javafx.application.Application.launch;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;

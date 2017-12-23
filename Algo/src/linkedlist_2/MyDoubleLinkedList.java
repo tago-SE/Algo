@@ -11,79 +11,27 @@ import java.util.ListIterator;
  */
 public class MyDoubleLinkedList<E> implements List, Iterable {
 
-    private MyNode<E> head;
-    private MyNode<E> tail;
-    private int size; 
+    private NodeChainLink<E> head;
+    private NodeChainLink<E> tail;
+    private int size;   
     
-    /*
-    private class MyIterator<E> implements Iterator {
-    
-        private MyNode<E> cur;
-        private MyNode<E> next;
-        private MyNode<E> prev;
-        
-        private MyIterator(MyNode<E> startNode) {
-            next = startNode;
-            cur = null;
-            prev = null;
-        }
-
-        @Override
-        public boolean hasNext() {
-            return next != null;
-        }
-
-        @Override
-        public Object next() {
-            prev = cur;
-            cur = next;
-            next = next.getNext();
-            return cur;
-        }
-
-        @Override
-        public void remove() {
-            if (cur == null)
-                throw new NullPointerException();   
-            if (cur == head) {
-                head = head.getNext();
-                if (head == null)
-                    tail = null;
-                else 
-                    head.setPrev(null);
-            }
-            else if (cur == tail) {
-                tail = tail.getPrev();
-                if (tail == null)
-                    head = null;
-                else 
-                    tail.setNext(null);
-            }
-            else {
-                prev.setNext(next);
-                next.setPrev(prev);
-            }
-            size--;
-            cur = null;
-        }
-    }
-    */
-    
-    private MyNode<E> getNode(int index) {
-        MyNode<E> node = head; 
+    private NodeChainLink<E> getNode(int index) {
+        if (index == size -1)
+            return tail;
+        NodeChainLink<E> node = head; 
         for (int i = 0; i < index && node != null; i++) {
             node = node.getNext();
         }
         return node; 
     }
-        
+    
     @Override 
     public Iterator<E> iterator() {
         return new Iterator() {
             
-            private MyNode<E> cur;
-            private MyNode<E> next = head;
-            private MyNode<E> prev;
+            private NodeChainLink<E> cur;
+            private NodeChainLink<E> next = head;
+            private NodeChainLink<E> prev;
         
             @Override
             public boolean hasNext() {
@@ -138,9 +86,7 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
     
     @Override
     public boolean add(Object o) {
-        
         add(size, o);
-        
         return true;
     }
     
@@ -162,18 +108,18 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
 
     @Override
     public Object get(int index) {
-        MyNode<E> node = getNode(index);
+        NodeChainLink<E> node = getNode(index);
         if (node != null) {
-            return node.getData();
+            return node.getElement();
         }
         return null;
     }
 
     @Override
     public Object set(int index, Object element) {
-        MyNode<E> node = getNode(index);
+        NodeChainLink<E> node = getNode(index);
         if (node != null) {
-            node.setData((E) element);
+            node.setElement((E) element);
             return element;
         }
         return null;
@@ -187,23 +133,24 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
         // Add first
         if (index == 0) {
             if (head == null) {
-                head = tail = new MyNode(element);
+                head = 
+                head = tail = new NodeChainLink(element);
             } else {
-                MyNode<E> newNode = new MyNode(element, head);
+                NodeChainLink<E> newNode = new NodeChainLink(element, head);
                 head.setPrev(newNode);
                 head = newNode;
             }
         // Add last
         } else if (index == size) {
-            MyNode<E> newNode = new MyNode(element, null, tail);
+            NodeChainLink<E> newNode = new NodeChainLink(element, null, tail);
             tail.setNext(newNode);
             tail = newNode;
         } 
         // Insert at index
         else {
-            MyNode<E> oldNode = getNode(index);
-            MyNode<E> prev = oldNode.getPrev();
-            MyNode<E> newNode = new MyNode(element, oldNode, prev);
+            NodeChainLink<E> oldNode = getNode(index);
+            NodeChainLink<E> prev = oldNode.getPrev();
+            NodeChainLink<E> newNode = new NodeChainLink(element, oldNode, prev);
             prev.setNext(newNode);
             oldNode.setPrev(newNode);
         }
@@ -218,7 +165,7 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
         Object deleted = null;
         // Remove first
         if (index == 0) {
-            deleted = head.getData();
+            deleted = head.getElement();
             head = head.getNext();
             if (head == null)
                 tail = null;
@@ -227,7 +174,7 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
         }
         // Remove last 
         else if (index == (size - 1)) {
-            deleted = tail.getData();
+            deleted = tail.getElement();
             tail = tail.getPrev();
             if (tail == null)
                 head = null;
@@ -236,13 +183,12 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
         }
         // Remove at index
         else {
-           
-            MyNode<E> node = getNode(index);
-            MyNode<E> prev = node.getPrev();
-            MyNode<E> next = node.getNext();
+            NodeChainLink<E> node = getNode(index);
+            NodeChainLink<E> prev = node.getPrev();
+            NodeChainLink<E> next = node.getNext();
             prev.setNext(next);
             next.setPrev(prev);
-            deleted = node.getData();
+            deleted = node.getElement();
         }
         size--;
         return deleted;
@@ -251,8 +197,8 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
     @Override
     public int indexOf(Object o) {
         int i = 0;
-        for (MyNode<E> node = head; node != null; node = node.getNext()) {
-            if (node.getData().equals(o))
+        for (NodeChainLink<E> node = head; node != null; node = node.getNext()) {
+            if (node.getElement().equals(o))
                 return i;
             i++;
         }
@@ -261,8 +207,8 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
     
     @Override
     public boolean contains(Object o) {
-        for (MyNode<E> node = head; node != null; node = node.getNext()) {
-            if (node.getData().equals(o))
+        for (NodeChainLink<E> node = head; node != null; node = node.getNext()) {
+            if (node.getElement().equals(o))
                 return true;
         }
         return false;
@@ -271,18 +217,18 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
     @Override
     public Object[] toArray() {
         Object[] array = new Object[size()];
-        MyNode<E> cur = head;
+        NodeChainLink<E> cur = head;
         for (int i = 0; i < size() && cur != null; i++, cur = cur.getNext()) {
-            array[i] = cur.getData();
+            array[i] = cur.getElement();
         }
         return array;
     }
 
     @Override
     public Object[] toArray(Object[] array) {
-        MyNode<E> cur = head;
+        NodeChainLink<E> cur = head;
         for (int i = 0; i < size() && cur != null; i++, cur = cur.getNext()) {
-            array[i] = cur.getData();
+            array[i] = cur.getElement();
         }
         return array;
     }
@@ -343,9 +289,9 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
     public List subList(int fromIndex, int toIndex) {
         MyDoubleLinkedList<E> list = new MyDoubleLinkedList();
         int i = 0;
-        for (MyNode<E> n = head; n != null; n = n.getNext()) {
+        for (NodeChainLink<E> n = head; n != null; n = n.getNext()) {
             if (i >= fromIndex && i <= toIndex) 
-                list.add(n.getData());
+                list.add(n.getElement());
             i++;
         }
         return list;
@@ -354,10 +300,11 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
     @Override
     public String toString() {
         String s = "{head=" + head + ", tail=" + tail + ", size=" + size + " ";
-        
-        for (MyNode<E> node = head; node != null; node = node.getNext()) {
-            s += "{" + node + "}";
+        StringBuilder sb = new StringBuilder(s);
+        for (NodeChainLink<E> node = head; node != null; node = node.getNext()) {
+            sb.append("{").append(node.getElement()).append("}");
         }
-        return s + "}";
+        sb.append("}");
+        return sb.toString();
     }
 }

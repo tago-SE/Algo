@@ -4,51 +4,51 @@ package linkedlist_2;
  *
  * @author tiago
  */
-class MyNode<E> {
+public class NodeChainLink<E> {
     private E data;
-    private MyNode<E> next;
-    private MyNode<E> prev;        
+    private NodeChainLink<E> next;
+    private NodeChainLink<E> prev;        
     
-    public MyNode() {
+    public NodeChainLink() {
         
     }
     
-    public MyNode(E data) {
+    public NodeChainLink(E data) {
         this.data = data;
     }
 
-    public MyNode(E data, MyNode<E> next) {
+    public NodeChainLink(E data, NodeChainLink<E> next) {
         this.data = data;
         this.next = next;
     }
     
-    public MyNode(E data, MyNode<E> next, MyNode<E> prev) {
+    public NodeChainLink(E data, NodeChainLink<E> next, NodeChainLink<E> prev) {
         this.data = data;
         this.next = next;
         this.prev = prev;
     }
     
-    public void setNext(MyNode<E> next) {
+    public void setNext(NodeChainLink<E> next) {
         this.next = next;
     }
 
-    public MyNode<E> getNext() {
+    public NodeChainLink<E> getNext() {
         return next;
     }
         
-    public MyNode<E> getPrev() {
+    public NodeChainLink<E> getPrev() {
         return prev;
     }
 
-    public void setPrev(MyNode<E> prev) {
+    public void setPrev(NodeChainLink<E> prev) {
         this.prev = prev;
     }
     
-    public void setData(E data) {
+    public void setElement(E data) {
         this.data = data;
     }
     
-    public E getData() {
+    public E getElement() {
         return data;
     }
     
