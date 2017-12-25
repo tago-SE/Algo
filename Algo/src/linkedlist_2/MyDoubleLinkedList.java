@@ -9,7 +9,7 @@ import java.util.ListIterator;
  *
  * @author tiago
  */
-public class MyDoubleLinkedList<E> implements List, Iterable {
+public class MyDoubleLinkedList<E> implements List {
 
     private NodeChainLink<E> head;
     private NodeChainLink<E> tail;
@@ -228,6 +228,7 @@ public class MyDoubleLinkedList<E> implements List, Iterable {
     public Object[] toArray(Object[] array) {
         NodeChainLink<E> cur = head;
         for (int i = 0; i < size() && cur != null; i++, cur = cur.getNext()) {
+            // WRONG NEED FIX
             array[i] = cur.getElement();
         }
         return array;

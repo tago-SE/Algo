@@ -10,16 +10,30 @@ import java.util.ListIterator;
  *
  * @author tiago
  */
-public class MySingleLinkedList<E> implements List, Iterable {
+public class MySingleLinkedList<E> implements List {
 
     private NodeChainLink<E> head;
-       
+    
+    /*
+    Not implemented
+    
+    private class Node<E> {
+        private Node<E> next;
+        private E element;
+        
+        private Node(E element, Node<E> next) {
+            this.element = element;
+            this.next = next;
+        }
+    }
+    */
+    
     @Override 
     public Iterator<E> iterator() {
         return new Iterator() {
             private NodeChainLink<E> cur;
             private NodeChainLink<E> next = head;
-            private NodeChainLink<E> prev;
+            private NodeChainLink<E> prev;         
         
             @Override
             public boolean hasNext() {
