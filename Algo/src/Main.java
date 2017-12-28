@@ -1,5 +1,4 @@
 import java.util.Iterator;
-import java.util.Stack;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -10,7 +9,9 @@ import static javafx.application.Application.launch;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
-import linkedlist_2.MyDoubleLinkedList;
+import f_02_linkedlist.MyDoubleLinkedList;
+import f_03_stack.Palindrome;
+import f_03_stack.StackArray;
 
 /**
  *
@@ -106,6 +107,25 @@ public class Main extends Application {
             System.out.println(o.toString());
         }
         //l.clear();
+        
+        
+        StackArray<String> stack = new StackArray();
+        
+        stack.push("3 lol");
+        stack.push("2 poll");
+        stack.push("1 sudan");
+  
+        
+        while (stack.peek() != null) {
+            outputArea.appendText(stack.pop().toString() + "\n");
+        }
+        
+        String s = "Madam";
+        if (Palindrome.validateStrAsPalindrome(s)) {
+            outputArea.appendText(s + " is a palindrome\n");
+        } else {
+            outputArea.appendText(s + " is not a palindrome\n");
+        }
     }
     
     /**

@@ -1,4 +1,4 @@
-package stack_3;
+package f_03_stack;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -89,7 +89,7 @@ public class StackLinked<E> implements StackInt, Collection {
             
             @Override
             public void remove() {
-                
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
     }
@@ -179,7 +179,6 @@ public class StackLinked<E> implements StackInt, Collection {
     public void clear() {
         flush();
     }
-    
     
     @Override
     public boolean isEmpty() {

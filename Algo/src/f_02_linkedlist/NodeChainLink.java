@@ -1,4 +1,4 @@
-package linkedlist_2;
+package f_02_linkedlist;
 
 /**
  *

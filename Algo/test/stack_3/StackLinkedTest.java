@@ -5,6 +5,8 @@
  */
 package stack_3;
 
+import f_03_stack.StackInt;
+import f_03_stack.StackArray;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

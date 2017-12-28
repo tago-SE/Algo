@@ -1,4 +1,4 @@
-package arraylist_1;
+package f_01_arraylist;
 
 import java.util.Iterator;
 
@@ -13,7 +13,7 @@ public interface ListInt {
     public Object add(int i, Object o);
     public Object remove(int i);
     public Object get(int i);
-    public Object set(int i);
+    public Object set(int i, Object o);
     public void clear();
     public int size();
     public boolean isEmpty();

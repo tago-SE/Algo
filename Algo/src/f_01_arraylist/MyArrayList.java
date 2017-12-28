@@ -1,4 +1,4 @@
-package arraylist_1;
+package f_01_arraylist;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -16,9 +16,7 @@ public class MyArrayList<E> implements List {
     private int cap = DEFAULT_CAP;
     private int size; 
     private E[] elements;
-    
-    
-    
+  
     public MyArrayList() {
         elements = (E[]) new Object[DEFAULT_CAP]; 
     }
@@ -54,7 +52,7 @@ public class MyArrayList<E> implements List {
         }
     }
     
-    private void swap(int i, int j) {
+    public void swap(int i, int j) {
         E temp = elements[i];
         elements[i] = elements[j];
         elements[j] = temp;
@@ -197,14 +195,14 @@ public class MyArrayList<E> implements List {
 
     @Override
     public Object get(int index) {
-        if (index < 0 || index >= size())
+        if (index < 0 || index >= size)
             throw new IndexOutOfBoundsException();
         return elements[index];
     }
 
     @Override
     public Object set(int index, Object element) {
-        if (index >= size) 
+        if (index >= size || index < 0) 
             throw new IndexOutOfBoundsException();
         return elements[index] = (E) element;
     }
