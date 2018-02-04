@@ -8,10 +8,10 @@ import java.util.Iterator;
  */
 public interface StackInt<E> {
     
-    public E push(E obj);
-    public E pop();
-    public E peek();
-    public void flush();
+    public E push(E obj);   // add to top e
+    public E pop();         // get top e
+    public E peek();        // view top e
+    public void flush();    // clear
     
     // Collection
     

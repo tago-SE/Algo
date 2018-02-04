@@ -72,17 +72,34 @@ public class MySingleLinkedList<E> implements List {
         return node; 
     }
     
-    @Override
-    public int size() {
-        int count = 0;
-        for (NodeChainLink<E> node = head; node != null; node = node.getNext())
-            count++;
-        return count;
+     @Override
+    public void add(int index, Object element) {
+        if (index < 0 || index > size()) {
+            throw new IndexOutOfBoundsException("index: " + index);
+        }
+        if (index == 0) {
+            head = new NodeChainLink(element, head);
+        } else {
+            NodeChainLink<E> prev = getNode(index - 1);
+            prev.setNext(new NodeChainLink(element, prev.getNext()));
+        }
     }
 
     @Override
-    public boolean isEmpty() {
-        return head == null;
+    public Object remove(int index) {
+        if (index < 0 || index >= size()) {
+            throw new IndexOutOfBoundsException("index: " + index);
+        }
+        Object deleted = null;
+        if (index == 0) {
+            deleted = head;
+            head = head.getNext();
+        } else {
+            NodeChainLink<E> prev = getNode(index - 1);
+            deleted = prev.getNext();
+            prev.setNext(prev.getNext().getNext());
+        }
+        return deleted;
     }
     
     @Override
@@ -114,6 +131,20 @@ public class MySingleLinkedList<E> implements List {
         return false;
     }
     
+    
+    @Override
+    public int size() {
+        int count = 0;
+        for (NodeChainLink<E> node = head; node != null; node = node.getNext())
+            count++;
+        return count;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return head == null;
+    }
+    
     @Override
     public void clear() {
         head = null;
@@ -136,37 +167,7 @@ public class MySingleLinkedList<E> implements List {
         } 
         return null;
     }
-
-    @Override
-    public void add(int index, Object element) {
-        if (index < 0 || index > size()) {
-            throw new IndexOutOfBoundsException("index: " + index);
-        }
-        if (index == 0) {
-            head = new NodeChainLink(element, head);
-        } else {
-            NodeChainLink<E> prev = getNode(index - 1);
-            prev.setNext(new NodeChainLink(element, prev.getNext()));
-        }
-    }
-
-    @Override
-    public Object remove(int index) {
-        if (index < 0 || index >= size()) {
-            throw new IndexOutOfBoundsException("index: " + index);
-        }
-        Object deleted = null;
-        if (index == 0) {
-            deleted = head;
-            head = head.getNext();
-        } else {
-            NodeChainLink<E> prev = getNode(index - 1);
-            deleted = prev.getNext();
-            prev.setNext(prev.getNext().getNext());
-        }
-        return deleted;
-    }
-
+    
     @Override
     public int indexOf(Object o) {
         int index = 0;

@@ -1,3 +1,4 @@
+import f_02_linkedlist.DummyLinkedList;
 import java.util.Iterator;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -11,6 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import f_02_linkedlist.MyDoubleLinkedList;
 import f_03_stack.Palindrome;
+import f_03_stack.PostfixEvaluator;
 import f_03_stack.StackArray;
 
 /**
@@ -81,7 +83,16 @@ public class Main extends Application {
         
         MyDoubleLinkedList<String> l = new MyDoubleLinkedList<>();
         
+        DummyLinkedList<String> l2 = new DummyLinkedList<>();
      
+        PostfixEvaluator eval = new PostfixEvaluator();
+        String exp = "1 2 + 5 -";
+        int a = eval.evaluateString(exp);
+        outputArea.appendText(exp + " = " + a);
+        
+        //System.out.println(l2.toString());
+        
+        /*
         
         l.add(1);
         l.add("SomeRemovedText");
@@ -113,7 +124,7 @@ public class Main extends Application {
         
         stack.push("3 lol");
         stack.push("2 poll");
-        stack.push("1 sudan");
+        stack.push("1 roll");
   
         
         while (stack.peek() != null) {
@@ -126,6 +137,7 @@ public class Main extends Application {
         } else {
             outputArea.appendText(s + " is not a palindrome\n");
         }
+        */
     }
     
     /**

@@ -20,47 +20,85 @@ public class MyArrayList<E> implements List {
     public MyArrayList() {
         elements = (E[]) new Object[DEFAULT_CAP]; 
     }
-    
-    /**
-    * Internal methods
-    */
-    
     private boolean expandCondition() {
         return size >= cap - 1;
     }
-    
     private boolean shrinkCondition() {
         return size == cap/4 && size > 1;
     }
-        
     private void reallocate(int newCap) {
         cap = newCap;
         E[] newElements = (E[]) new Object[cap]; 
         System.arraycopy(elements, 0, newElements, 0, size);
         elements = newElements;
     }
-    
     private void shuffleElementsOnRemove(int index) {
         for (int i = index; i < size; i++) {
             elements[i] = elements[i + 1];
         }
     }
-    
     private void shuffleElementsOnAdd(int index) {
         for (int i = size - 1; i > index; i--) {
             elements[i + 1] = elements[i];
         }
     }
-    
     public void swap(int i, int j) {
         E temp = elements[i];
         elements[i] = elements[j];
         elements[j] = temp;
     }
     
-    /**
-    * List Interface implementation
-    */
+    @Override
+    public void add(int index, Object element) {
+        if (index < 0 || index > size) 
+            throw new IndexOutOfBoundsException();
+        if (element == null)
+            throw new NullPointerException();
+        add(element);
+        if (index != size - 1) {
+            shuffleElementsOnAdd(index);
+            swap(index, size - 1);
+        }
+    }
+    
+    @Override
+    public boolean add(Object e) {
+        if (e == null)
+            throw new NullPointerException();
+        if (expandCondition())
+            reallocate(cap*2);
+        elements[size++] = (E) e;
+        return true;
+    }
+    
+
+    @Override
+    public Object remove(int index) {
+        if (index < 0 || index >= size) 
+            throw new IndexOutOfBoundsException("index: " + index);
+        
+        Object removedObj = elements[index];
+        shuffleElementsOnRemove(index);
+        size--;
+        elements[size] = null;
+        return removedObj;
+    }
+    
+    @Override
+    public boolean remove(Object o) { 
+        for (int i = 0; i < size; i++) {
+            if (o.equals(elements[i])) {
+                size--;
+                elements[size] = null;
+                if (shrinkCondition())
+                    reallocate(cap/2);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    
     
     @Override
     public int size() {
@@ -122,31 +160,7 @@ public class MyArrayList<E> implements List {
         addAll(Arrays.asList(a));
         return elements;
     }
-
-    @Override
-    public boolean add(Object e) {
-        if (e == null)
-            throw new NullPointerException();
-        if (expandCondition())
-            reallocate(cap*2);
-        elements[size++] = (E) e;
-        return true;
-    }
-    
-    @Override
-    public boolean remove(Object o) { 
-        for (int i = 0; i < size; i++) {
-            if (o.equals(elements[i])) {
-                size--;
-                elements[size] = null;
-                if (shrinkCondition())
-                    reallocate(cap/2);
-                return true;
-            }
-        }
-        return false;
-    }
-
+   
     @Override
     public boolean containsAll(Collection c) {
         return c.stream().noneMatch((o) -> (!contains(o)));
@@ -206,32 +220,7 @@ public class MyArrayList<E> implements List {
             throw new IndexOutOfBoundsException();
         return elements[index] = (E) element;
     }
-
-    @Override
-    public void add(int index, Object element) {
-        if (index < 0 || index > size) 
-            throw new IndexOutOfBoundsException();
-        if (element == null)
-            throw new NullPointerException();
-        add(element);
-        if (index != size - 1) {
-            shuffleElementsOnAdd(index);
-            swap(index, size - 1);
-        }
-    }
-
-    @Override
-    public Object remove(int index) {
-        if (index < 0 || index >= size) 
-            throw new IndexOutOfBoundsException("index: " + index);
-        
-        Object removedObj = elements[index];
-        shuffleElementsOnRemove(index);
-        size--;
-        elements[size] = null;
-        return removedObj;
-    }
-
+    
     @Override
     public int indexOf(Object o) {
         for (int i = 0; i < size; i++) {

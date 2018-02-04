@@ -75,57 +75,6 @@ public class MyDoubleLinkedList<E> implements List {
     }
 
     @Override
-    public int size() {
-        return size;
-    }
-
-    @Override
-    public boolean isEmpty() {
-        return head == null;
-    }
-    
-    @Override
-    public boolean add(Object o) {
-        add(size, o);
-        return true;
-    }
-    
-    @Override
-    public boolean remove(Object o) {
-        try {
-            remove(indexOf(o));
-        } catch (IndexOutOfBoundsException ex) {
-            return false;
-        }
-        return true;
-    }
-    
-    @Override
-    public void clear() {
-        size = 0;
-        head = tail = null;
-    }
-
-    @Override
-    public Object get(int index) {
-        NodeChainLink<E> node = getNode(index);
-        if (node != null) {
-            return node.getElement();
-        }
-        return null;
-    }
-
-    @Override
-    public Object set(int index, Object element) {
-        NodeChainLink<E> node = getNode(index);
-        if (node != null) {
-            node.setElement((E) element);
-            return element;
-        }
-        return null;
-    }
-    
-    @Override
     public void add(int index, Object element) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("index: " + index);
@@ -133,7 +82,6 @@ public class MyDoubleLinkedList<E> implements List {
         // Add first
         if (index == 0) {
             if (head == null) {
-                head = 
                 head = tail = new NodeChainLink(element);
             } else {
                 NodeChainLink<E> newNode = new NodeChainLink(element, head);
@@ -192,6 +140,57 @@ public class MyDoubleLinkedList<E> implements List {
         }
         size--;
         return deleted;
+    }
+    
+    @Override
+    public int size() {
+        return size;
+    }
+
+    @Override
+    public boolean isEmpty() {
+        return head == null;
+    }
+    
+    @Override
+    public boolean add(Object o) {
+        add(size, o);
+        return true;
+    }
+    
+    @Override
+    public boolean remove(Object o) {
+        try {
+            remove(indexOf(o));
+        } catch (IndexOutOfBoundsException ex) {
+            return false;
+        }
+        return true;
+    }
+    
+    @Override
+    public void clear() {
+        size = 0;
+        head = tail = null;
+    }
+
+    @Override
+    public Object get(int index) {
+        NodeChainLink<E> node = getNode(index);
+        if (node != null) {
+            return node.getElement();
+        }
+        return null;
+    }
+
+    @Override
+    public Object set(int index, Object element) {
+        NodeChainLink<E> node = getNode(index);
+        if (node != null) {
+            node.setElement((E) element);
+            return element;
+        }
+        return null;
     }
 
     @Override
