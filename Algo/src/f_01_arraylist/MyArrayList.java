@@ -26,6 +26,7 @@ public class MyArrayList<E> implements List {
     private boolean shrinkCondition() {
         return size == cap/4 && size > 1;
     }
+    
     private void reallocate(int newCap) {
         cap = newCap;
         E[] newElements = (E[]) new Object[cap]; 

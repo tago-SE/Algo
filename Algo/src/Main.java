@@ -14,6 +14,11 @@ import f_02_linkedlist.MyDoubleLinkedList;
 import f_03_stack.Palindrome;
 import f_03_stack.PostfixEvaluator;
 import f_03_stack.StackArray;
+import f_04_queue.CircularQueue;
+import f_09_sort.*;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
 
 /**
  *
@@ -75,12 +80,30 @@ public class Main extends Application {
             Platform.exit();
         });
         
+        int rdm, range = 100, min = 0;
+        int size = 10;
+        int[] a = new int[size];
+        int[] b = new int[size];
+        for (int i = 0; i < size; i++) {
+            rdm = (int) (Math.random()*range) + min;
+            a[i] = rdm;
+            b[i] = rdm;
+        }
+        ShellSort.shellsort(b);
+        for (int i = 0; i < 10; i++) {
+            outputArea.appendText("a: " + a[i] + "\t b: " + b[i] + "\n");
+        }
+        /*
+        CircularQueue<String> q = new CircularQueue<>();
         
-        
-        
-        
-        
-        
+        q.offer("Tiago");
+        q.offer("Julian");
+        outputArea.appendText(q.toString());
+        outputArea.appendText("peek: " + q.peek());
+        outputArea.appendText("poll: " + q.poll());
+        q.offer("Niklas");
+        outputArea.appendText(q.toString());
+        /*
         MyDoubleLinkedList<String> l = new MyDoubleLinkedList<>();
         
         DummyLinkedList<String> l2 = new DummyLinkedList<>();
@@ -89,7 +112,7 @@ public class Main extends Application {
         String exp = "1 2 + 5 -";
         int a = eval.evaluateString(exp);
         outputArea.appendText(exp + " = " + a);
-        
+        */
         //System.out.println(l2.toString());
         
         /*
