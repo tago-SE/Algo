@@ -89,7 +89,7 @@ public class Main extends Application {
             a[i] = rdm;
             b[i] = rdm;
         }
-        ShellSort.shellsort(b);
+        MergeSort.sort(b);
         for (int i = 0; i < 10; i++) {
             outputArea.appendText("a: " + a[i] + "\t b: " + b[i] + "\n");
         }

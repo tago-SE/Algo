@@ -7,7 +7,7 @@ package f_09_sort;
  */
 public class ShellSort {
     
-    public static void shellsort(int[] a) {
+    public static void sort(int[] a) {
         for (int gap = a.length/2; gap >= 0; gap /= (int) 2.2) {
             int cur, j;
             // Similar to insertion sort

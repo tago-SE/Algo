@@ -6,7 +6,7 @@ package f_09_sort;
  */
 public class InsertionSort {
     
-    public static void insertionSort(int[] a) {
+    public static void sort(int[] a) {
         int cur, j;
         for (int i = 1; i < a.length; i++) {
             cur = a[i];
