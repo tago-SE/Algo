@@ -19,6 +19,10 @@ import f_09_sort.*;
 import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
 
 /**
  *
@@ -81,7 +85,7 @@ public class Main extends Application {
         });
         
         int rdm, range = 100, min = 0;
-        int size = 10;
+        int size = 7;
         int[] a = new int[size];
         int[] b = new int[size];
         for (int i = 0; i < size; i++) {
@@ -89,8 +93,8 @@ public class Main extends Application {
             a[i] = rdm;
             b[i] = rdm;
         }
-        Heapsort.sort(b);
-        for (int i = 0; i < 10; i++) {
+        BucketSort.sort(b);
+        for (int i = 0; i < size; i++) {
             outputArea.appendText("a: " + a[i] + "\t b: " + b[i] + "\n");
         }
         /*
