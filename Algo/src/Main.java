@@ -15,6 +15,8 @@ import f_03_stack.Palindrome;
 import f_03_stack.PostfixEvaluator;
 import f_03_stack.StackArray;
 import f_04_queue.CircularQueue;
+import f_08_hash.HashtableArray;
+import f_08_hash.HashtableBucket;
 import f_09_sort.*;
 import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
@@ -84,6 +86,20 @@ public class Main extends Application {
             Platform.exit();
         });
         
+        HashtableArray hashtable = new HashtableArray(5);
+        hashtable.put("T", "Tiago");
+        hashtable.put("J", "Julian");
+        hashtable.put("N", "Niklas");
+        hashtable.put("F", "Filip");
+        hashtable.put("G", "Gustav");
+        hashtable.put("GG", "Granitvägen");
+        //outputArea.appendText(hashtable.toString() + "\n");
+        //outputArea.appendText(hashtable.get("N") + "\n");
+        //hashtable.remove("T");
+        outputArea.appendText(hashtable.toString() + "\n");
+        
+        
+        /*
         int rdm, range = 100, min = 0;
         int size = 7;
         int[] a = new int[size];
@@ -97,6 +113,7 @@ public class Main extends Application {
         for (int i = 0; i < size; i++) {
             outputArea.appendText("a: " + a[i] + "\t b: " + b[i] + "\n");
         }
+        */
         /*
         CircularQueue<String> q = new CircularQueue<>();
         
