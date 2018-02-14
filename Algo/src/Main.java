@@ -17,6 +17,7 @@ import f_03_stack.StackArray;
 import f_04_queue.CircularQueue;
 import f_08_hash.HashtableArray;
 import f_08_hash.HashtableBucket;
+import f_08_hash.HashtableOpen;
 import f_09_sort.*;
 import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
@@ -86,7 +87,7 @@ public class Main extends Application {
             Platform.exit();
         });
         
-        HashtableArray hashtable = new HashtableArray(5);
+        HashtableOpen hashtable = new HashtableOpen();
         hashtable.put("T", "Tiago");
         hashtable.put("J", "Julian");
         hashtable.put("N", "Niklas");
@@ -96,7 +97,7 @@ public class Main extends Application {
         //outputArea.appendText(hashtable.toString() + "\n");
         //outputArea.appendText(hashtable.get("N") + "\n");
         //hashtable.remove("T");
-        outputArea.appendText(hashtable.toString() + "\n");
+        outputArea.appendText(hashtable.exist("FF") + "\n");
         
         
         /*
