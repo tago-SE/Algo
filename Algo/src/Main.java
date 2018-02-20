@@ -15,10 +15,20 @@ import f_03_stack.Palindrome;
 import f_03_stack.PostfixEvaluator;
 import f_03_stack.StackArray;
 import f_04_queue.CircularQueue;
+import f_07_binary_tree.BinarySearchTree;
 import f_08_hash.HashtableArray;
 import f_08_hash.HashtableBucket;
 import f_08_hash.HashtableOpen;
 import f_09_sort.*;
+import f_10_graf.ShortestDistanceGraph;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
+import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
 import static javafx.application.Application.launch;
@@ -79,6 +89,7 @@ public class Main extends Application {
         
         Scene scene = new Scene(root, 300, 250);
         
+        
         primaryStage.setTitle("Algo App");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -87,6 +98,31 @@ public class Main extends Application {
             Platform.exit();
         });
         
+       
+        BinarySearchTree<String> b = new BinarySearchTree();
+        
+        b.add("H");
+        b.add("C");
+        b.add("I");
+        b.add("E");
+        b.add("D");
+        b.add("J");
+        
+        String cont = "H";
+        String del = "H";
+        
+        outputArea.appendText(b.toString() + "\n");
+        outputArea.appendText("leaves: " + b.numberOfLeaves() + "\n");
+        outputArea.appendText("nodes: " + b.numberOfNodes() + "\n");
+        outputArea.appendText("Largest child: " + b.findLargestChild() + "\n");
+        outputArea.appendText("Parents with 2 children: " + b.numberOfNodesWith2Children() + "\n");
+        outputArea.appendText("Tree height: " + b.treeHeight() + "\n");
+        outputArea.appendText("Contains " + cont + ": " + b.contains(cont) + "\n");
+        outputArea.appendText("delete " + del + ": " + b.delete(del) + "\n");
+        outputArea.appendText("print tree: \n" + b.printTree() + "\n");
+        //ShortestDistanceGraph.test();
+        
+        /*
         HashtableOpen hashtable = new HashtableOpen();
         hashtable.put("T", "Tiago");
         hashtable.put("J", "Julian");
