@@ -1,3 +1,4 @@
+import TEN160314.*;
 import f_02_linkedlist.DummyLinkedList;
 import java.util.Iterator;
 import javafx.application.Application;
@@ -15,6 +16,12 @@ import f_03_stack.Palindrome;
 import f_03_stack.PostfixEvaluator;
 import f_03_stack.StackArray;
 import f_04_queue.CircularQueue;
+import f_06_back_tracking.Elevator;
+import f_06_back_tracking.Fastest_Path;
+import f_06_back_tracking.Maze;
+import f_06_back_tracking.LinkedListRec;
+import f_06_back_tracking.Queens;
+import f_06_back_tracking.RobotSort;
 import f_07_binary_tree.BinarySearchTree;
 import f_08_hash.HashtableArray;
 import f_08_hash.HashtableBucket;
@@ -43,10 +50,18 @@ import static javafx.application.Application.launch;
  */
 public class Main extends Application {
     
+    private TextArea outputArea;
+    
+    private void out(String str) {
+        outputArea.appendText(str);
+    }
+    
+    
     @Override
     public void start(Stage primaryStage) {
         
-        TextArea outputArea = new TextArea();
+        /*
+        outputArea = new TextArea();
         TextField inputArea = new TextField();
         VBox root = new VBox();
         
@@ -97,8 +112,76 @@ public class Main extends Application {
             System.out.println("Exit");
             Platform.exit();
         });
+        */
         
+        
+        SingleLinkedList_T<String> l = new SingleLinkedList_T();
+        l.add("Tiago");
+        l.add("Julian");
+        l.add("Filip");
+        System.out.println(l.toString());
        
+        
+        Iterator<String> it = l.iterator(0);
+       
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+       
+        BinarySearchTree_T<String> b = new BinarySearchTree_T<>();
+        b.add("H");
+        b.add("B");
+        b.add("N");
+        b.add("A");
+        b.add("E");
+        b.add("C");
+        b.add("F");
+        b.add("D");
+        b.add("G");
+        b.add("J");
+        b.add("I");
+        b.printTree();
+        System.out.println(b.nrSingleParents());
+        System.out.println("....");
+        MapPath.solve(3, 3);
+        
+        
+        
+        
+        
+        /*
+        Maze m = new Maze();
+        m.print();
+        if(m.solve()) System.out.println("Lyckades");
+        System.out.println();
+        m.print();
+        */
+       // Labyrinth l = new Labyrinth();
+       
+       //out(Fastest_Path.solve() + "\n");
+       
+       
+       //out(RobotSort.sort("BEACD") + "\n");
+       
+       //Queens.solve();
+       
+        /*
+        int t = Elevator.numTimesTraveled(78, 15, 8, 35);
+        out("times traveled = " + t + "\n");
+        
+        LinkedListRec<String> l = new LinkedListRec();
+        l.add(0, "Tiago");
+        l.add(1, "Julian");
+        l.add(2, "Filip");
+        l.add(3, "Peter");
+        l.remove(1);
+        
+        out(l.toString() + "\n");
+        out("size: " + l.size());
+        
+        
+        
+        /*
         BinarySearchTree<String> b = new BinarySearchTree();
         
         b.add("H");
