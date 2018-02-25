@@ -19,14 +19,6 @@ public class Uppg5 {
         System.out.println("Result: " + res);
     }
 
-    private static String convArrToStr(int[] arr) {
-        String returnVal = "";
-        for (int i = 0; i < arr.length; i++) {
-            returnVal += arr[i] + ",";
-        }
-        return returnVal;
-    }
-
     private static String convArrToStr(String[] arr) {
         String returnVal = "";
         for (int i = 0; i < arr.length; i++) {
@@ -62,14 +54,6 @@ public class Uppg5 {
         return grid;
     }
 
-    private static int currSize(ArrayList<Integer> curr) {
-        int val = 0;
-        for (int i = 0; i < curr.size(); i++) {
-            val += curr.get(i);
-        }
-        return val;
-    }
-
     public static String increaseCount(String grid) {
         String[] arr = grid.split(",\\s*");
         int count = Integer.parseInt(arr[arr.length - 1]);
@@ -85,22 +69,22 @@ public class Uppg5 {
     }
 
     public static int noOfMoves(String grid) {
-        grid += ",0";
-        ArrayList<String> paths = new ArrayList<>();
+        grid += ",0"; //starvalue on counter every path gets its own counter
+        ArrayList<String> paths = new ArrayList<>(); //array of current positions with pathcounter on end
         paths.add(grid);
-        int arrIndex = 0;
         int count = 0;
         int index = 0;
         while (count < 362880) { //do until we checked every possiblity of rotations
-            if (index == 5) {
+            if (index == 5) { //reset index
                 count++;
                 index = 0;
-                paths.remove(0);
+                paths.remove(0); //remove the last one checked
                 
                 System.out.println("until error: " + (((double) count / (double) 362880) * 100) + "%");
-            } else if (index == 2) {
+            } else if (index == 2) { //skip this one
                 index = 3;
             } else if (index == 0 || index == 1 || index == 3 || index == 4) {
+                //try this path with rotating and all valid indexes clockwise and counterclosewise
                 String rotateCounter = rotatePiece(paths.get(0), index, false);
                 rotateCounter = increaseCount(rotateCounter);
                 paths.add(rotateCounter);
