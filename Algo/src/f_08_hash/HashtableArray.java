@@ -29,7 +29,7 @@ public class HashtableArray <K, V> {
     
     private int index(K key) {
         int i = key.hashCode() % size;
-        if (i < 0) i += size;
+        if (i  < 0) i += size;
         return i;
     }
     

@@ -27,6 +27,10 @@ public class BinarySearchTree_T<E extends Comparable<E>> {
         return nrSingleParents(root, 0);
     }
 
+    public boolean findLargestChild() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     private static class Node<E> {
 
         private E data;

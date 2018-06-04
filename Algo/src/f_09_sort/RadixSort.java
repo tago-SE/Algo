@@ -8,7 +8,7 @@ public class RadixSort {
     
     private static int getMaxNumber(int[] a) {
         int max = a[0];
-        for (int i = 0; i < a.length; i++)
+        for (int i = 1; i < a.length; i++)
             if (a[i] > max)
                 max = a[i];
         return max;
@@ -23,6 +23,7 @@ public class RadixSort {
         
         for (int i = 0; i < a.length; i++)  // Count occurances of digit 
             count[get(a, i, exp)]++;
+        
         for (int i = 1; i < 10; i++)    // change count so it contains actual 
             count[i] += count[i - 1];   // position of this digit
         
@@ -31,8 +32,8 @@ public class RadixSort {
             output[count[x] - 1] = a[i];
             count[x]--;
         }
-        for (int i = 0; i < a.length; i++) // Copy content
-            a[i] = output[i];
+
+        System.arraycopy(output, 0, a, 0, a.length);
     }
     public static void sort(int a[]) {
         int max = getMaxNumber(a); // highest number in array

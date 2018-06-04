@@ -1,6 +1,5 @@
 package f_08_hash;
 
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**

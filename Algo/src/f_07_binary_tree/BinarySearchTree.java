@@ -145,12 +145,27 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return numberOfNodes(root, 0);
     }
     
-    private E findLargestChild(Node<E> root, E curLargest) {
-        if (root == null)
+    /*
+        private E findLargestChild(Node<E> parent) {
+        // If the right child has no right child, it is the inorder predecessor
+        if (parent.right.right == null) {
+            E returnValue = parent.right.data;
+            parent.right = parent.right.right;
+            return returnValue;
+        } else {
+            return findLargestChild(parent.right);
+        }
+    }
+    */
+    
+    private E findLargestChild(Node<E> localRoot, E curLargest) {
+        if (localRoot == null)
             return curLargest;
-        if (root.right != null)
-            return findLargestChild(root.right, root.right.e);
-        return root.e;
+        
+        if (localRoot.right != null)
+            return findLargestChild(localRoot.right, localRoot.right.e);
+        
+        return curLargest;
     }
     public E findLargestChild() {
         if (root == null)

@@ -18,7 +18,7 @@ public class Heapsort {
     public static void sort(int [] a) {
         buildMaxheap(a);
         shrinkHeap(a);
-    }
+    } 
 
     private static void buildMaxheap(int [] a) {    
    

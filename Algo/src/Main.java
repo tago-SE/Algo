@@ -1,16 +1,8 @@
-import TEN160314.*;
-import f_02_linkedlist.DummyLinkedList;
-import java.util.Iterator;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.scene.Scene;
+
 import javafx.stage.Stage;
 import static javafx.application.Application.launch;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.VBox;
 import f_02_linkedlist.MyDoubleLinkedList;
 import f_03_stack.Palindrome;
 import f_03_stack.PostfixEvaluator;
@@ -20,6 +12,7 @@ import f_06_back_tracking.Elevator;
 import f_06_back_tracking.Fastest_Path;
 import f_06_back_tracking.Maze;
 import f_06_back_tracking.LinkedListRec;
+import f_06_back_tracking.Puzzle;
 import f_06_back_tracking.Queens;
 import f_06_back_tracking.RobotSort;
 import f_07_binary_tree.BinarySearchTree;
@@ -27,22 +20,6 @@ import f_08_hash.HashtableArray;
 import f_08_hash.HashtableBucket;
 import f_08_hash.HashtableOpen;
 import f_09_sort.*;
-import f_10_graf.ShortestDistanceGraph;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
-import static javafx.application.Application.launch;
 
 /**
  *
@@ -114,7 +91,11 @@ public class Main extends Application {
         });
         */
         
+       // int[] a =  Gen.generate(10);
+       // RadixSort.sort(a);
+       // Gen.print(a);
         
+        /*
         SingleLinkedList_T<String> l = new SingleLinkedList_T();
         l.add("Tiago");
         l.add("Julian");
@@ -127,8 +108,8 @@ public class Main extends Application {
         while (it.hasNext()) {
             System.out.println(it.next());
         }
-       
-        BinarySearchTree_T<String> b = new BinarySearchTree_T<>();
+       */
+        BinarySearchTree<String> b = new BinarySearchTree<>();
         b.add("H");
         b.add("B");
         b.add("N");
@@ -140,14 +121,16 @@ public class Main extends Application {
         b.add("G");
         b.add("J");
         b.add("I");
-        b.printTree();
-        System.out.println(b.nrSingleParents());
+         System.out.println(b.printTree());
+        System.out.println(b.findLargestChild());
         System.out.println("....");
-        MapPath.solve(3, 3);
+       // MapPath.solve(3, 3);
         
         
+        //Puzzle.solve(1, 3);
         
-        
+
+        RobotSort.sort("Hi");
         
         /*
         Maze m = new Maze();

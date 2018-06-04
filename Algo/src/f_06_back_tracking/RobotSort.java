@@ -1,6 +1,7 @@
 package f_06_back_tracking;
 
-import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
 
 /**
  *
@@ -8,15 +9,14 @@ import java.util.Arrays;
  */
 public class RobotSort {
     
-    private static final int MAX_STEPS = 11;
-    
-    /*
-    private static boolean isSorted(char[] c, int i) {
-        if (i >= c.length - 1)
-            return true;
-        if (c[i] > c[i + 1])
-            return false;
-        return isSorted(c, i + 1);
+    private static final int MAX_STEPS = 15;
+ 
+    private static boolean isSorted(char[] c) {
+        for (int i = 0; i < c.length - 1; i++) {
+            if (c[i] > c[i + 1])
+                return false;
+        }
+        return true;
     }
     
     private static char[] switchFirstWithSecond(char[] c) {
@@ -27,92 +27,73 @@ public class RobotSort {
     }
     
     private static char[] moveLastToFirst(char[] c) {
-        char tmp = c[0];
-        c[0] = c[c.length - 1];
-        c[c.length - 1] = tmp;
+        char tmp = c[c.length - 1];
+        for (int i = c.length -1; i > 0; i--) {
+            c[i] = c[i - 1];
+        }
+        c[0] = tmp;
         return c;
     }
     
-    public static char[] copy(char[] source) {
-         char[] c = new char[source.length];
-         for (int i = 0; i < source.length; i++) {
-             c[i] = source[i];
-         }
-         return c;
+    private static char[] moveFirstToLast(char[] c) {
+        char tmp = c[0];
+        int i;
+        for (i = 0; i < c.length - 1; i++) {
+            c[i] = c[i + 1];
+        }
+        c[i] = tmp;
+        return c;
     }
     
-    public static int sort_DF(char[] c1, int steps) {
-        if (isSorted(c1, 0)) 
+    private static class State {
+        char[] c;
+        int steps;
+        private State(char[] c, int steps) {
+            this.steps = steps;
+            this.c = new char[c.length];
+            System.arraycopy(c, 0, this.c, 0, c.length);
+        }
+    }
+    
+    private static int sort_BF(char[] c, int steps) {
+        Queue<State> q = new LinkedList();
+        q.offer(new State(c, 0));
+        State s;
+        while (q.size() > 0) {
+            s = q.poll();
+            if (isSorted(s.c))
+                return s.steps;
+            if (s.steps >= MAX_STEPS)
+                break;
+            q.offer(new State(switchFirstWithSecond(s.c), s.steps + 1));
+            q.offer(new State(moveLastToFirst(s.c), s.steps + 1));
+        }
+        return -1;
+    }
+    
+    private static int sort_DF(char[] c, int steps) {
+        if (isSorted(c)) 
             return steps;
         if (steps >= MAX_STEPS)
             return Integer.MAX_VALUE;
         
-        char[] c2 = copy(c1);
-        /*
-        switchFirstWithSecond(c1);
-        System.out.println(Arrays.toString(c1));
-        System.out.println(Arrays.toString(c2));
-        return 0;
-        
-        return Math.min(sort_DF(switchFirstWithSecond(c1), steps + 1), sort_DF(moveLastToFirst(c2), steps + 1));
-    }
-    */
-    private static boolean isSorted(String str) {
-        for (int i = 0; i < str.length() - 1; i++) {
-            if (str.charAt(i) > str.charAt(i + 1))
-                return false;
-        }
-        return true;
-    }
-    
-    private static String moveLastToFirst(String str) {
-        String s = "" + str.charAt(str.length() - 1);
-        char tmp = str.charAt(0);
-        for (int i = 1; i < str.length() - 1; i++) {
-            s = s + str.charAt(i);
-        }
-        return s + tmp;
-    }
-    
-    private static String switchFirstWithSecond(String str) {
-        char tmp = str.charAt(0);
-        String s = "" + str.charAt(1);
-        s += tmp;
-        for (int i = 2; i < str.length(); i++) {
-            s = s + str.charAt(i);
-        }
-        return s;
-    }
-    
-    private static int sort_DF(String str, int steps) {
-        if (isSorted(str))
-            return steps;
-        if (steps >= MAX_STEPS)
-            return Integer.MAX_VALUE;
-        int a = sort_DF(moveLastToFirst(str), steps + 1);
-        int b = sort_DF(switchFirstWithSecond(str), steps + 1);
+        switchFirstWithSecond(c);
+        int b = sort_DF(c, steps + 1);
+        switchFirstWithSecond(c);       // reset
+        moveLastToFirst(c);
+        int a = sort_DF(c, steps + 1);
+        moveFirstToLast(c);             // reset
         return Math.min(a, b);
     }
     
+    public static void test(String s) {
+        s += " change";
+        
+    }
+    
     public static String sort(String str) {
-        /*
-        int max = str.length();
-
-        char[] c = new char[max];
-        for (int i = 0; i < max; i++) {
-            c[i] = str.charAt(i);
-        }
-        int steps = sort_DF(c, 0);
-        return Arrays.toString(c) + " steps = " + steps;
-*/
-        String s1 = "AGGGGGB";
-        String s2 = "ABGGGG";
-        System.out.println(moveLastToFirst(s1));
-        System.out.println(switchFirstWithSecond(s2));
-        System.out.println(isSorted("ABC"));
-        System.out.println(isSorted("EDF"));
-        int steps = sort_DF("BEACAD", 0);
-        System.out.println("steps = " + steps);
+        System.out.println("DF = " + sort_DF("BECAD".toCharArray(), 0));
+        System.out.println("BF = " + sort_BF("BECAD".toCharArray(), 0));
         return "";
     }
 

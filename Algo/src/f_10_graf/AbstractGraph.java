@@ -1,38 +1,29 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package f_10_graf;
-
-import java.util.Scanner;
 
 /**
  *
  * @author tiago
  */
-public class AbstractGraph implements GraphInt {
+public abstract class AbstractGraph {
     
-    
-    private int numVerticies;
-    private boolean directed; 
-    
+    protected int numV;
+    protected boolean directed;
+   
     public AbstractGraph(int numV, boolean directed) {
-        this.numVerticies = numV;
+        this.numV = numV;
         this.directed = directed;
     }
     
-    @Override
-    public int getNumVertices() {
-        return numVerticies;
+    public int getNumV() {
+        return numV;
     }
-    
-    @Override
     public boolean isDirected() {
         return directed;
     }
-
-    @Override
-    public void loadEdgesFromFile(Scanner scan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
-    
-    
-
+   
 }
