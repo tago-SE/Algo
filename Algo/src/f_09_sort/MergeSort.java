@@ -24,8 +24,7 @@ public class MergeSort {
     }
     
     private static void mergesort(int[] a) {
-        if (a.length == 1) 
-            return;        
+        if (a.length == 1) return;        
         int[] left = new int[a.length/2];       
         int[] right = new int[a.length/2 + a.length % 2];
         System.arraycopy(a, 0, left, 0, left.length);

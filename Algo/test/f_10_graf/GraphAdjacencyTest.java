@@ -52,9 +52,9 @@ public class GraphAdjacencyTest {
     }
 
     @Test
-    public void testToString() {
-        ListGraph g = getInstance();
-       // System.out.println(g.toString());
+    public void testToString() throws IOException {
+        ListGraph g = ListGraph.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency_1.txt");
+        System.out.println(g.toString());
     }
     
     //@Test
@@ -63,13 +63,13 @@ public class GraphAdjacencyTest {
         System.out.println(g.toString());
     }
     
-    @Test
+    //@Test
     public void findClosestPath() throws IOException {
         ListGraph g = ListGraph.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency.txt");
         g.findClosestPath(0,'H' - 'A');
     }
     
-    @Test
+     //@Test
     public void findPathBreadthFirst() throws IOException {
         ListGraph g = ListGraph.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency.txt");
         g.findPathBreadthFirst(0,'H' - 'A');
@@ -77,13 +77,14 @@ public class GraphAdjacencyTest {
     
     @Test
     public void findShortestPathDepthFirst() throws IOException {
-        ListGraph g = ListGraph.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency.txt");
-        g.findShortestPathDepthFirst(0,'H' - 'A');
+        ListGraph g = ListGraph.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency_1.txt");
+        g.findShortestPathDepthFirst(0, 'H' - 'A');
     }
-    
-    @Test
+    /*
+   // @Test
     public void printMatrixGraph() throws IOException {
-        MatrixGraph g = MatrixGraph.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency.txt");
+        ShortestPath g = ShortestPath.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency.txt");
         System.out.println("MATRIX: \n" + g.toString());
     }
+*/
 }

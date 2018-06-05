@@ -8,17 +8,17 @@ package f_09_sort;
 public class ShellSort {
     
     public static void sort(int[] a) {
-        for (int gap = a.length/2; gap >= 0; gap /= (int) 2.2) {
-            int cur, j;
-            // Similar to insertion sort
-            for (int i = gap; i < a.length; i++) {
-               cur = a[i];
-               for (j = i; j >= gap && cur < a[j - gap]; j -= gap) {
-                   a[j] = a[j - gap];
+        for (int g = a.length/2; g >= 0; g /= (int) 2.2) {
+            // Similar to insertion sort (g replaces 1 and 0)
+            for (int i = g; i < a.length; i++) {
+               int cur = a[i], j;
+               for (j = i; j >= g && cur < a[j - g]; j -= g) {
+                   a[j] = a[j - g];
                }
                a[j] = cur;
             }
-            if (gap == 0) break;
+            if (g == 0) break;  
         }
     }
+    
 }

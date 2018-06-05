@@ -59,7 +59,6 @@ public class ListGraph {
             int lineCount = 0;
             
             ArrayList<Edge> edges = new ArrayList<>();
-            int numV; 
             int maxSrcs = -1;
             while (line != null) {
                 int srcs = line.charAt(0) - 'A';

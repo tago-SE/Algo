@@ -37,18 +37,19 @@ public class MatrixGraphTest {
     @Test
     public void testCreateGraph() throws Exception {
     }
-
+/*
     @Test
     public void testToString() throws IOException {
-        MatrixGraph g = MatrixGraph.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency.txt");
+        ShortestPath g = ShortestPath.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency.txt");
         System.out.println("MATRIX: \n" + g.toString());
     
     }
     
     @Test
     public void findShortestPathFromNodeToOthers() throws IOException {
-        MatrixGraph g = MatrixGraph.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency.txt");
+        ShortestPath g = ShortestPath.createGraph("C:\\Users\\tiago\\OneDrive\\Dokument\\KTH\\Algo\\Repo\\Algo\\Algo\\src\\f_10_graf" + "\\adjacency.txt");
         g.findShortestPathFromNodeToOthers(0);
+        
     }
-   
+   */
 }

@@ -59,4 +59,20 @@ public class SortTest {
         System.out.println(Arrays.toString(a));
         checkForSortFailure(a);
     }
+    
+    @Test
+    public void HeapSort() {
+        int[] a = {1, 3, 2, 34, 9, 82, 14, 10, 8, 7, 1, 3, 2};
+        Heapsort.sort(a);
+        System.out.println(Arrays.toString(a));
+        checkForSortFailure(a);
+    }
+    
+    @Test
+    public void ShellSort() {
+        int[] a = {1, 3, 2, 34, 9, 82, 14, 10, 8, 12};
+        ShellSort.sort(a);
+        System.out.println(Arrays.toString(a));
+        checkForSortFailure(a);
+    }
 }

@@ -15,12 +15,11 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author tiago
- */
+/*
+
 public class MatrixGraph extends AbstractGraph {
 
+    /*
     private boolean[][] adjacent; 
     private int[][] weight;
     
@@ -54,12 +53,6 @@ public class MatrixGraph extends AbstractGraph {
     }
     
     
-    /**
-     * 
-     * @param start     the start vertex
-     * @param pred      Output-array containing predecessors
-     * @param dist      Output-array containing the distance in the shortest path
-     */
     public void dijkstra(int start, int[] pred, int[] dist) {
         HashSet<Integer> vMinusS = new HashSet<>();
         // Initialize V-S   Add all vertecies except the starting one
@@ -157,4 +150,6 @@ public class MatrixGraph extends AbstractGraph {
         }
         return sb.toString();
     }
+   
 }
+ */

@@ -10,9 +10,9 @@ package f_10_graf;
  * @author tiago
  */
 public class Edge {
-    private int weight;
-    private int source;
-    private int dest;
+    int weight;
+    int source;
+    int dest;
 
     public Edge(int source, int dest) {
         this.source = source;
