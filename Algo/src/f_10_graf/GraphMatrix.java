@@ -22,7 +22,7 @@ public class GraphMatrix {
     
     /**
      * 
-     * @param graph output 2D array for the graph
+     * @param graph output 2D array for the graph containing weights
      * @param fileName the file to be read
      * @return the number of vertices
      * @throws FileNotFoundException
