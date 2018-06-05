@@ -31,10 +31,10 @@ public class ShortestPath {
     
     /* Utility function to find vertex with minimum distance value from
      * the set of vertices not yet included in shortest path tree */
-    public int minDistance(int[] dist, boolean[] sptSet) {
+    public int minDistance(int[] dist, boolean[] proc) {
         int min = Integer.MAX_VALUE, minIndex = -1;
         for (int v = 0; v < dist.length; v++) {
-            if (!sptSet[v] && dist[v] <= min) {
+            if (!proc[v] && dist[v] <= min) {
                 min = dist[v];
                 minIndex = v;
             }
@@ -61,21 +61,21 @@ public class ShortestPath {
         // Output array - dist[i] will hold the shortest distance from src to i
         int dist[] = new int[numV];
         
-        boolean[] set  = new boolean[numV];
+        boolean[] proc  = new boolean[numV];
         
         // Setup all distances
         for (int u = 0; u < numV; u++) {
             dist[u] = Integer.MAX_VALUE;
-            set[u] = false;
+            proc[u] = false;
         }
         dist[srcs] = 0; // distance to source is always 0
         
         for (int u = 0; u < numV - 1; u++) {
             // Pick the min distance vertec from the set of vertices not yet 
             // processed. u is always srcs in the first iteration
-            // Mark the opicked vertex as processed
-            int min = minDistance(dist, set);
-            set[min] = true;
+            int min = minDistance(dist, proc);
+            proc[min] = true;
+            
             for (Integer v : getAdjacent(min)) {
                  if (dist[v] > dist[min] + graph[min][v]) {
                     dist[v] = dist[min] + graph[min][v];
@@ -87,7 +87,7 @@ public class ShortestPath {
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("");
+        StringBuilder sb = new StringBuilder("Weighted Adjacency List");
         for (int v = 0; v < numV; v++) {
             sb.append(v).append(": ");
             Iterator itr = getAdjacent(v).iterator();
