@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package f_10_graf;
 
 import java.util.ArrayList;
@@ -17,29 +12,32 @@ public class ShortestPath {
     
     final private int numV;
     final private int[][] graph;
-     
+    private static final int NO_PARENT = -1;
+    
     public ShortestPath(int[][] graph, int numV) {
         this.graph = graph;
         this.numV = numV;
     }
     
-    public void printSolution(int dist[], int numV) {
-       System.out.println("Vertex   Distance from Source");
-       for (int v = 0; v < numV; v++)
-            System.out.println(v + "\t\t" + dist[v]);
+    public void printSolution(int srcs, int dist[], int numV, int[] parent) {
+        System.out.println("Vertex\t\tDistance\tPath");
+        for (int v = 0; v < numV; v++) {
+            if (v == srcs)
+                continue;
+            System.out.print((char) (v + 'A') + " -> " + (char) (srcs + 'A') + "\t\t" + dist[v] + "\t\t"); 
+            for (Integer p : getPath(v, parent, new ArrayList<>())) {
+                System.out.print((char) (p + 'A') + ", ");
+            }
+            System.out.println("");
+        }
     }
     
-    /* Utility function to find vertex with minimum distance value from
-     * the set of vertices not yet included in shortest path tree */
-    public int minDistance(int[] dist, boolean[] proc) {
-        int min = Integer.MAX_VALUE, minIndex = -1;
-        for (int v = 0; v < dist.length; v++) {
-            if (!proc[v] && dist[v] <= min) {
-                min = dist[v];
-                minIndex = v;
-            }
-        }
-        return minIndex;
+     public List<Integer> getPath(int v, int[] parent, List<Integer> output) {
+        if (v == NO_PARENT)
+            return output;
+        getPath(parent[v], parent, output);
+        output.add(v);
+        return output;
     }
     
     public boolean hasEdge(int srcs, int dest) {
@@ -57,37 +55,57 @@ public class ShortestPath {
         return adj;
     }
     
-    public void djikstra(int srcs) {
-        // Output array - dist[i] will hold the shortest distance from src to i
-        int dist[] = new int[numV];
-        
-        boolean[] proc  = new boolean[numV];
-        
-        // Setup all distances
+    public int minDistance(int[] dist, boolean[] proc) {
+        int min = Integer.MAX_VALUE, minIndex = -1;
+        for (int v = 0; v < dist.length; v++) {
+            if (!proc[v] && dist[v] <= min) {
+                min = dist[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    }
+    
+    public void djikstra(int srcs, int[] dist, int[] parent) {
+        boolean[] proc = new boolean[numV];
         for (int u = 0; u < numV; u++) {
-            dist[u] = Integer.MAX_VALUE;
+            dist[u] = Integer.MAX_VALUE;    
             proc[u] = false;
         }
-        dist[srcs] = 0; // distance to source is always 0
+        dist[srcs] = 0;                 
+        parent[srcs] = NO_PARENT;
         
-        for (int u = 0; u < numV - 1; u++) {
-            // Pick the min distance vertec from the set of vertices not yet 
-            // processed. u is always srcs in the first iteration
+        for (int u = 0; u < numV - 1; u++) { 
             int min = minDistance(dist, proc);
             proc[min] = true;
-            
             for (Integer v : getAdjacent(min)) {
                  if (dist[v] > dist[min] + graph[min][v]) {
+                    parent[v] = min;
                     dist[v] = dist[min] + graph[min][v];
                 }
             }
         }
-        printSolution(dist, numV);
+        printSolution(srcs, dist, numV, parent);
+    }
+    
+    public int shortestPath(int srcs, int dest) {
+        int dist[] = new int[numV];
+        int parent[] = new int[numV];
+        djikstra(srcs, dist, parent);
+        /*
+        System.out.println("----");
+        System.out.println("Shortest distance from " + srcs + " to " + dest + " is " + dist[dest]);
+        for (Integer v : getPath(dest, parent, new ArrayList<>())) {
+            System.out.print(v + ", ");
+        }
+        System.out.println("\n----");
+        */
+        return dist[dest];   
     }
     
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("Weighted Adjacency List");
+        StringBuilder sb = new StringBuilder("Weighted Adjacency List\n");
         for (int v = 0; v < numV; v++) {
             sb.append(v).append(": ");
             Iterator itr = getAdjacent(v).iterator();

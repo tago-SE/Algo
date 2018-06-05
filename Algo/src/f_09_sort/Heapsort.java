@@ -8,7 +8,6 @@ package f_09_sort;
 
 public class Heapsort {
 
-    // in place
    private static void swap(int [] a, int i, int j) {
         int temp = a[i];
         a[i] = a[j];
@@ -19,8 +18,7 @@ public class Heapsort {
         buildMaxheap(a);
         shrinkHeap(a);
     }
-    private static void buildMaxheap(int [] a) {    
-   
+    private static void buildMaxheap(int [] a) {   
         for (int n = 2; n < a.length; n++) {
             int child = n - 1;     
             int parent = (child - 1)/2; 
