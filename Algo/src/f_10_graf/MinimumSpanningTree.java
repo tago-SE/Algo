@@ -55,8 +55,6 @@ public class MinimumSpanningTree {
         int parent[] = new int[numV];
         int dist[] = new int[numV];
         boolean proc[] = new boolean[numV];
-        
-       
         for (int u = 0; u < numV; u++) {
             dist[u] = Integer.MAX_VALUE;
             proc[u] = false;
@@ -76,7 +74,6 @@ public class MinimumSpanningTree {
         }
         printMST(parent, srcs);
     }
-    
     public void printMST(int[] parent, int srcs) {
         for (int v = 0; v < numV; v++) {
             if (v == srcs)

@@ -14,7 +14,7 @@ public class MergeSort {
         // while there is data in both input sequences pick the smallest
         // and insert into the output sequence
         while (l < left.length && r < right.length) {
-            if (left[l] <right[r]) 
+            if (left[l] < right[r]) 
                 out[o++] = left[l++];
             else 
                 out[o++] = right[r++];
