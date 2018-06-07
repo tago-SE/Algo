@@ -18,7 +18,7 @@ public class MinimumSpanningTree {
     final private int numV;
     final private int[][] graph;
     private static final int NO_PARENT = -1;
-    
+     
     public MinimumSpanningTree(int[][] graph, int numV) {
         this.graph = graph;
         this.numV = numV;

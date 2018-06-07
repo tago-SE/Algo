@@ -75,7 +75,7 @@ public class ShortestPath {
         dist[srcs] = 0; // first picked          
         parent[srcs] = NO_PARENT;
         
-        for (int u = 0; u < numV - 1; u++) { 
+        for (int u = 0; u < numV; u++) { 
             int min = minDistance(dist, proc);
             proc[min] = true;
             for (Integer v : getAdjacent(min)) {
