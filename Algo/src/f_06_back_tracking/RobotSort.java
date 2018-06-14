@@ -2,6 +2,8 @@ package f_06_back_tracking;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
+import java.util.Vector;
 
 /**
  *
@@ -87,6 +89,7 @@ public class RobotSort {
     }
     
     public static void test(String s) {
+   
         s += " change";
         
     }
