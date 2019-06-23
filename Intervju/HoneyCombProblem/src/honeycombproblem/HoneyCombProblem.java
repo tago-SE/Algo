@@ -84,7 +84,7 @@ public class HoneyCombProblem {
             return col >= 0 && row >= 0 && col <= 2*R - 2 && row <= 2*R - 2;
         }
         
-        public Cell get(int id) {
+        public Cell getById(int id) {
             return cellsList.get(id - 1);
             /*
             int maxCol = R;
@@ -210,7 +210,7 @@ public class HoneyCombProblem {
        for (;;) {
            System.out.println("Enter id:");
            int id = scan.nextInt();
-           Cell c = grid.get(id);
+           Cell c = grid.getById(id);
            System.out.println(c.toString());
        }
        
