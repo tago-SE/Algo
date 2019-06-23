@@ -64,15 +64,20 @@ public class HoneyCombProblem {
     
     private static class Grid {
         
-        public Cell[][] cells;
+        public Cell[][] cells;              // Lookup table by column, row
+        private ArrayList<Cell> cellsList;  // Lookup table by id
+        
         public final int rows;
         public final int cols;
         public final int R;
+        
+        
         
         public Grid(int R) {
             this.rows = this.cols = 2*R - 1;
             this.R = R;
             cells = new Cell[cols][rows];
+            cellsList  = new ArrayList<>();
         }
         
         public boolean sanityCheck(int col, int row) {
@@ -80,6 +85,8 @@ public class HoneyCombProblem {
         }
         
         public Cell get(int id) {
+            return cellsList.get(id - 1);
+            /*
             int maxCol = R;
             int c = 0;
             int r = 0;
@@ -98,6 +105,7 @@ public class HoneyCombProblem {
                 }
              }
             return null;
+            */
         }
      
         @Override
@@ -131,6 +139,7 @@ public class HoneyCombProblem {
         for (int i = 0; i < R*R*R - (R - 1)*(R - 1)*(R - 1); i++) {
            Cell c = new Cell(i + 1);
            grid.cells[col][row] = c;
+           grid.cellsList.add(c);
            
            col++;
            if (col == maxCol) {
